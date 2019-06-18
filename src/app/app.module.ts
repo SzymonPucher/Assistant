@@ -8,10 +8,13 @@ import { environment } from '../environments/environment';
   
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BudgetComponent } from './budget/budget.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BudgetComponent
   ],
   imports: [
     BrowserModule,
