@@ -1,0 +1,45 @@
+1. Budget must consists of 4 elements:
+    a. Incomes
+    b. Spendings
+    c. Loans
+    d. Inner transfers
+2. Those elements are enough to describe every transaction.
+    a. When you make money, you input it as an income.
+    b. When you spend money, you input it as a spending.
+    c. When you take a loan or loan somebody your money, you input it as a loan.
+    d. When you transfer money between your accounts, you input an inner transfer.
+3. Standard fields of each element:
+    a. Incomes
+        - Date
+        - Source
+        - Destination
+        - Amount
+        - Currency
+    b. Spendings
+        - Category
+        - Subcategory
+        - Product
+        - Price
+        - Currency
+        - Payment method (source)
+        - Date
+        - Vendor Type
+        - Vendor
+        - Location
+    b. Loans
+        - Lender
+        - Borrower
+        - Amount
+        - Currency
+        - Account
+        - Date
+        - Due
+    b. Inner transfers
+        - Date
+        - Source
+        - Source amount
+        - Source currency
+        - Destination
+        - Destination amount
+        - Destination currency
+        
