@@ -16,6 +16,10 @@ export class BudgetIncomesAddComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.addSuggestions();
+  }
+  
+  addSuggestions(){
     var fields = {'Source': Array(), 'Destination': Array(), 'Currency': Array()}
     this.incomes.subscribe(res => {
       res.forEach(income => {

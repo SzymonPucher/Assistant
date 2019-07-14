@@ -16,6 +16,10 @@ export class BudgetLoansAddComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.addSuggestions();
+  }
+
+  addSuggestions(){
     var fields = {'Lender': Array(), 'Borrower': Array(), 'Currency': Array(), 'Account': Array()}
     this.incomes.subscribe(res => {
       res.forEach(income => {
@@ -42,7 +46,7 @@ export class BudgetLoansAddComponent implements OnInit {
 
   onSubmit() {
     var inputs = document.getElementsByTagName('input');
-    var labels = ['Lender', 'Borrower', 'Amount', 'Currency', 'Account', 'Date', 'Due']
+    var labels = ['Lender', 'Borrower', 'Amount', 'Currency', 'Account', 'Date', 'Due', 'Description']
     if(inputs.length != labels.length){
       alert('Incorrect number of inputs!');
       return;

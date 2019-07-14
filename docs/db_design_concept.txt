@@ -34,6 +34,7 @@
         - Account
         - Date
         - Due
+        - Description
     b. Inner transfers
         - Date
         - Source
@@ -42,4 +43,5 @@
         - Destination
         - Destination amount
         - Destination currency
+        - Reason
         

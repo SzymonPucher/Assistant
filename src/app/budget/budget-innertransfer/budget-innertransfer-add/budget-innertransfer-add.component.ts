@@ -16,7 +16,11 @@ export class BudgetInnertransferAddComponent implements OnInit {
   }
 
   ngOnInit(){
-    var fields = {'Source': Array(), 'Source currency': Array(), 'Destination': Array(), 'Destination currency': Array()}
+    this.addSuggestions();
+  }
+
+  addSuggestions(){
+    var fields = {'Source': Array(), 'Source currency': Array(), 'Destination': Array(), 'Destination currency': Array(), 'Reason': Array()}
     this.incomes.subscribe(res => {
       res.forEach(income => {
         Object.keys(fields).forEach(key => {
@@ -42,13 +46,13 @@ export class BudgetInnertransferAddComponent implements OnInit {
 
   onSubmit() {
     var inputs = document.getElementsByTagName('input');
-    var labels = ['Date', 'Source', 'Source amount', 'Source currency', 'Destination', 'Destination amount', 'Destination currency']
-    if(inputs.length != 7){
+    var labels = ['Date', 'Source', 'Source amount', 'Source currency', 'Destination', 'Destination amount', 'Destination currency', 'Reason']
+    if(inputs.length != labels.length){
       alert('Incorrect number of inputs!');
       return;
     }
     var data = {}
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < labels.length; i++) {
       data[labels[i]] = inputs[i].value 
     }
     this.db.list('innertransfers').push(data);
