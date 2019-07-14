@@ -21,19 +21,10 @@ export class BudgetLoansAddComponent implements OnInit {
       res.forEach(income => {
         Object.keys(fields).forEach(key => {
           if(!fields[key].includes(income[key])){
-            console.log(key, fields[key], income[key])
             fields[key].push(income[key]);
+            this.addSuggestion(key, income[key]);
           }
         }); 
-      });
-      this.addSuggestions(fields);
-    });
-  }
-
-  addSuggestions(fields){
-    Object.keys(fields).forEach(field => {
-      fields[field].forEach(value => {
-        this.addSuggestion(field, value);
       });
     });
   }
@@ -42,6 +33,9 @@ export class BudgetLoansAddComponent implements OnInit {
     var sugg_box = document.getElementById(field).getElementsByClassName('suggestions')[0];
     var sf = document.createElement('div');
     sf.innerHTML = value;
+    sf.onclick = function(){
+      sugg_box.parentElement.getElementsByTagName('input')[0].value = value;
+    }
     sf.className = 'field_suggestion';
     sugg_box.appendChild(sf);
   }
