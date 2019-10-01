@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-budget-innertransfer-add',
   templateUrl: './budget-innertransfer-add.component.html',
-  styleUrls: ['./budget-innertransfer-add.component.sass']
+  styleUrls: ['./budget-innertransfer-add.component.scss']
 })
 export class BudgetInnertransferAddComponent implements OnInit {
 

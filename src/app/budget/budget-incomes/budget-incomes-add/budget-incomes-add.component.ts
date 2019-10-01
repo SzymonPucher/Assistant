@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-budget-incomes-add',
   templateUrl: './budget-incomes-add.component.html',
-  styleUrls: ['./budget-incomes-add.component.sass']
+  styleUrls: ['./budget-incomes-add.component.scss']
 })
 export class BudgetIncomesAddComponent implements OnInit {
 
