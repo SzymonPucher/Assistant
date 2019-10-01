@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-budget-expenses-add',
   templateUrl: './budget-expenses-add.component.html',
-  styleUrls: ['./budget-expenses-add.component.sass']
+  styleUrls: ['./budget-expenses-add.component.scss']
 })
 export class BudgetExpensesAddComponent implements OnInit {
 
@@ -15,7 +15,7 @@ export class BudgetExpensesAddComponent implements OnInit {
   constructor(public db: AngularFireDatabase) {
     var today = new Date()
     var date_str = (today.getFullYear()-1).toString() + '-' + today.getMonth().toString() + '-' + today.getDate().toString()
-    this.items = db.list('spendings', ref => ref.orderByChild('Date').startAt(date_str)).valueChanges();
+    this.items = db.list('expenses', ref => ref.orderByChild('Date').startAt(date_str)).valueChanges();
   }
 
   ngOnInit(){
@@ -153,7 +153,7 @@ export class BudgetExpensesAddComponent implements OnInit {
       var inputs = fields[i].getElementsByTagName('input')
       data[inputs[0].value] = inputs[1].value 
     }
-    this.db.list('spendings').push(data);
+    this.db.list('expenses').push(data);
   }
 
   addFormField(label='', value='') {

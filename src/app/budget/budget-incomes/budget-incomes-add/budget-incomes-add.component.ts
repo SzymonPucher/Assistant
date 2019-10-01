@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-budget-incomes-add',
   templateUrl: './budget-incomes-add.component.html',
-  styleUrls: ['./budget-incomes-add.component.sass']
+  styleUrls: ['./budget-incomes-add.component.scss']
 })
 export class BudgetIncomesAddComponent implements OnInit {
 
@@ -16,24 +16,19 @@ export class BudgetIncomesAddComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.addSuggestions();
+  }
+  
+  addSuggestions(){
     var fields = {'Source': Array(), 'Destination': Array(), 'Currency': Array()}
     this.incomes.subscribe(res => {
       res.forEach(income => {
         Object.keys(fields).forEach(key => {
           if(!fields[key].includes(income[key])){
-            console.log(key, fields[key], income[key])
             fields[key].push(income[key]);
+            this.addSuggestion(key, income[key]);
           }
         }); 
-      });
-      this.addSuggestions(fields);
-    });
-  }
-
-  addSuggestions(fields){
-    Object.keys(fields).forEach(field => {
-      fields[field].forEach(value => {
-        this.addSuggestion(field, value);
       });
     });
   }
@@ -42,6 +37,9 @@ export class BudgetIncomesAddComponent implements OnInit {
     var sugg_box = document.getElementById(field).getElementsByClassName('suggestions')[0];
     var sf = document.createElement('div');
     sf.innerHTML = value;
+    sf.onclick = function(){
+      sugg_box.parentElement.getElementsByTagName('input')[0].value = value;
+    }
     sf.className = 'field_suggestion';
     sugg_box.appendChild(sf);
   }

@@ -1,22 +1,21 @@
-
 <form (ngSubmit)="onSubmit()" id='aform'>
   <div id="Date">
-    <input type="text" placeholder="Date">
+    <input type="date" placeholder="Date">
   </div>
   <div id="Source">
-  <input type="text" placeholder="Source">
-  <div class="suggestions"></div>
-</div>
+    <input type="text" placeholder="Source">
+    <div class="suggestions"></div>
+  </div>
   <div id="Destination">
-  <input type="text" placeholder="Destination">
-  <div class="suggestions"></div>
-</div>
+    <input type="text" placeholder="Destination">
+    <div class="suggestions"></div>
+  </div>
   <div id="Amount">
-  <input type="number" placeholder="Amount">
-</div>
+    <input type="number" step="0.01" min="0" placeholder="Amount">
+  </div>
   <div id="Currency">
-  <input type="text" placeholder="Currency">
-  <div class="suggestions"></div>
-</div>
+    <input type="text" placeholder="Currency">
+    <div class="suggestions"></div>
+  </div>
   <button type="submit" id="sbmbtn">Submit</button>
 </form>
