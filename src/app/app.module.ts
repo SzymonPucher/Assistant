@@ -1,9 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatInputModule, MatProgressSpinnerModule, MatCardModule, MatMenuModule, MatIconModule } from '@angular/material';
-
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -21,11 +18,13 @@ import { BudgetLoansAddComponent } from './budget/budget-loans/budget-loans-add/
 import { BudgetInnertransferComponent } from './budget/budget-innertransfer/budget-innertransfer.component';
 import { BudgetInnertransferAddComponent } from './budget/budget-innertransfer/budget-innertransfer-add/budget-innertransfer-add.component';
 import { MenuComponent } from './menu/menu.component';
+import { JournalComponent } from './journal/journal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    MenuComponent,
     BudgetComponent,
     BudgetExpensesComponent,
     BudgetExpensesAddComponent,
@@ -35,17 +34,11 @@ import { MenuComponent } from './menu/menu.component';
     BudgetLoansAddComponent,
     BudgetInnertransferComponent,
     BudgetInnertransferAddComponent,
-    MenuComponent
+    JournalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatMenuModule,  
-    MatInputModule,
-    BrowserAnimationsModule,
-    MatIconModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AppRoutingModule

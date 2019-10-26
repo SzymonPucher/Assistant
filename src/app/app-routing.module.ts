@@ -9,7 +9,7 @@ import { BudgetLoansComponent } from './budget/budget-loans/budget-loans.compone
 import { BudgetLoansAddComponent } from './budget/budget-loans/budget-loans-add/budget-loans-add.component';
 import { BudgetInnertransferComponent } from './budget/budget-innertransfer/budget-innertransfer.component';
 import { BudgetInnertransferAddComponent } from './budget/budget-innertransfer/budget-innertransfer-add/budget-innertransfer-add.component';
-
+import { JournalComponent } from './journal/journal.component'
 
 
 const routes: Routes = [
@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'budget/loans', component: BudgetLoansComponent },
   { path: 'budget/loans/add', component: BudgetLoansAddComponent },
   { path: 'budget/innertransfers', component: BudgetInnertransferComponent },
-  { path: 'budget/innertransfers/add', component: BudgetInnertransferAddComponent }
+  { path: 'budget/innertransfers/add', component: BudgetInnertransferAddComponent },
+  { path: 'journal', component: JournalComponent }
 ];
 
 @NgModule({
