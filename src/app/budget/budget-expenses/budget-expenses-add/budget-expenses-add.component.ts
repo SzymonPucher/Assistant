@@ -141,7 +141,9 @@ export class BudgetExpensesAddComponent implements OnInit {
     var data = {}
     this.get_sugg_inp_comps().forEach(element => {
       if (element.include) {
-        data[element.inpLabel] = element.getValue();
+        if(element.getValue().length > 0){
+          data[element.inpLabel] = element.getValue();
+        }
       }
     });
     this.db.list('expenses').push(data);
