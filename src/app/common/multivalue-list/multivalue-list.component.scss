@@ -1,0 +1,30 @@
+.mv_box{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background: #bbbbbb;
+    margin: 0.1em;
+}
+
+.list_element{
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px auto;
+    background-color:#cccccc;
+    text-align: center;
+    
+}
+.multivalue-list_label{
+    font-size: 0.8em;
+}
+.line{
+    height: 2px;
+    width: 100%;
+    background-color:#333;
+}
+
+.multivalue-list_value {
+    width: 100%;
+}

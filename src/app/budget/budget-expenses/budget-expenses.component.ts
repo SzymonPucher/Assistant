@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-budget-expenses',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BudgetExpensesComponent implements OnInit {
 
-  constructor() { }
+  itemsRef: AngularFireList<any>;
+  items: Observable<any[]>;
+  constructor(db: AngularFireDatabase) {
+    this.itemsRef = db.list('expenses');
+    // Use snapshotChanges().map() to store the key
+    this.items = this.itemsRef.snapshotChanges().pipe(map(changes => 
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
+  }
 
   ngOnInit() {
   }
 
+  delete(key){
+    this.itemsRef.remove(key);
+  }
 }

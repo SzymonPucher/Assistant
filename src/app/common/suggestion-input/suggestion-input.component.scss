@@ -1,0 +1,26 @@
+.input_box {
+    width: 400px;
+}
+
+.sugg_box{
+    display: flex;
+    width: 100%;
+    padding: 0 2px;
+    margin: 2px 8px;
+    overflow-x: auto;
+    white-space: nowrap ;
+    background-color: #aaaaaa;
+    border-radius: 10px;
+}
+
+.suggestion_item {
+    margin: 2px;
+    padding: 3px;
+    border-radius: 10px;
+    background-color: #dddddd;
+    cursor: pointer;
+}
+
+input{
+    width: 400px;
+}

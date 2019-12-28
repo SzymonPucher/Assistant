@@ -19,6 +19,8 @@ import { BudgetInnertransferComponent } from './budget/budget-innertransfer/budg
 import { BudgetInnertransferAddComponent } from './budget/budget-innertransfer/budget-innertransfer-add/budget-innertransfer-add.component';
 import { MenuComponent } from './menu/menu.component';
 import { JournalComponent } from './journal/journal.component';
+import { SuggestionInputComponent } from './common/suggestion-input/suggestion-input.component';
+import { MultivalueListComponent } from './common/multivalue-list/multivalue-list.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { JournalComponent } from './journal/journal.component';
     BudgetLoansAddComponent,
     BudgetInnertransferComponent,
     BudgetInnertransferAddComponent,
-    JournalComponent
+    JournalComponent,
+    SuggestionInputComponent,
+    MultivalueListComponent
   ],
   imports: [
     BrowserModule,
