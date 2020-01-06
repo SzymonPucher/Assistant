@@ -44,6 +44,13 @@ export class BudgetIncomesAddComponent implements OnInit {
     sugg_box.appendChild(sf);
   }
 
+  try_to_convert(value){
+    if(!isNaN(+value)){
+      return +value;
+    }
+    return value;
+  }
+
   onSubmit() {
     var inputs = document.getElementsByTagName('input');
     var labels = ['Date', 'Source', 'Destination', 'Amount', 'Currency']
@@ -53,7 +60,7 @@ export class BudgetIncomesAddComponent implements OnInit {
     }
     var data = {}
     for (var i = 0; i < 5; i++) {
-      data[labels[i]] = inputs[i].value 
+      data[labels[i]] = this.try_to_convert(inputs[i].value)
     }
     this.db.list('incomes').push(data);
   }

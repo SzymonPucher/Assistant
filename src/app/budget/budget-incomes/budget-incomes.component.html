@@ -1,3 +1,17 @@
-<p>
-  budget-incomes works!
-</p>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Amount</th>
+    <th style="width: 50px;">Action</th>
+  </tr>
+  <tr *ngFor="let item of (items | async).reverse()">
+    <td>{{item.Date}}</td>
+    <td>{{item.Source}}</td>
+    <td>{{item.Destination}}</td>
+    <td>{{item.Amount}} {{item.Currency}}</td>
+    <td><i style="font-size: 20px;" (click)="update(item.key)" class="material-icons">edit</i>
+      <i style="font-size: 20px;" (click)="delete(item.key)" class="material-icons">delete</i></td>
+  </tr>
+</table>

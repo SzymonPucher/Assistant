@@ -47,12 +47,6 @@ export class BudgetExpensesAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.fields = [{ label: 'Product', type_of_field: 'text', suggestions: ['1', '2', '5'] },
-    // { label: 'Category', type_of_field: 'text', suggestions: ['1', '2', '5'] },
-    // { label: 'Subcategory', type_of_field: 'text', suggestions: ['1', '2', '5'] },
-    // { label: 'Price', type_of_field: 'decimal', suggestions: ['1', '2', '5'] }]
-    //'Subcategory', 'Price', 'Currency', 'Payment Method', 'Date', 'Vendor', 'Vendor Type', 'Location']
-
   }
 
   get_sugg_inp_comps() {
@@ -120,13 +114,6 @@ export class BudgetExpensesAddComponent implements OnInit {
           }
         });
       });
-
-    // this.get_sugg_inp_comps().forEach(element => {
-    //   if(element.getValue().length == 0){
-    //     this.calculate_suggestions(element.inpLabel)
-    //   }
-    // });
-
   }
 
   addFormField(label_inp = '', type_inp = 'text') {
@@ -137,12 +124,19 @@ export class BudgetExpensesAddComponent implements OnInit {
     this.fields = this.fields.filter(obj => obj !== label);
   }
 
+  try_to_convert(value){
+    if(!isNaN(+value)){
+      return +value;
+    }
+    return value;
+  }
+
   onSubmit() {
     var data = {}
     this.get_sugg_inp_comps().forEach(element => {
       if (element.include) {
         if(element.getValue().length > 0){
-          data[element.inpLabel] = element.getValue();
+          data[element.inpLabel] = this.try_to_convert(element.getValue());
         }
       }
     });

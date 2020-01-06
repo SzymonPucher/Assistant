@@ -5,10 +5,10 @@
     <th>Price</th>
     <th style="width: 50px;">Action</th>
   </tr>
-  <tr *ngFor="let item of items | async">
+  <tr *ngFor="let item of (items | async).reverse()">
     <td>{{item.Date}}</td>
     <td>{{item.Product}}</td>
-    <td>{{item.Price}}</td>
+    <td>{{item.Price}} {{item.Currency}}</td>
     <td><i style="font-size: 20px;" (click)="update(item.key)" class="material-icons">edit</i>
       <i style="font-size: 20px;" (click)="delete(item.key)" class="material-icons">delete</i></td>
   </tr>

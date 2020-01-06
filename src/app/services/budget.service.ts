@@ -12,8 +12,7 @@ export class BudgetService {
   constructor(public db: AngularFireDatabase) { 
     var today = new Date()
     var date_str = (today.getFullYear() - 1).toString() + '-' + today.getMonth().toString() + '-' + today.getDate().toString()
-    //this.expenses = db.list('expenses', ref => ref.orderByChild('Date').startAt(date_str)).valueChanges();
-    this.expenses = db.list('expenses', ref => ref).valueChanges();
+    this.expenses = db.list('expenses', ref => ref.orderByChild('Date').startAt(date_str)).valueChanges();
   }
 
   get_expenses(){
