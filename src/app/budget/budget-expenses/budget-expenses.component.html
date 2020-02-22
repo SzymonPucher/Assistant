@@ -1,14 +1,19 @@
-<table>
+  <button (click)="toggleDetails()">Toggle Details</button>
+  
+  <table>
   <tr>
-    <th>Date</th>
-    <th>Product</th>
-    <th>Price</th>
+    <th *ngIf="!enableDetails">Date</th>
+    <th *ngIf="!enableDetails">Product</th>
+    <th *ngIf="!enableDetails">Price</th>
+    <th *ngIf="enableDetails">Details</th>
     <th style="width: 50px;">Action</th>
   </tr>
   <tr *ngFor="let item of (items | async).reverse()">
-    <td>{{item.Date}}</td>
-    <td>{{item.Product}}</td>
-    <td>{{item.Price}} {{item.Currency}}</td>
+    <td *ngIf="!enableDetails">{{item.Date}}</td>
+    <td *ngIf="!enableDetails">{{item.Product}}</td>
+    <td *ngIf="!enableDetails">{{item.Price}} {{item.Currency}}</td>
+
+    <td *ngIf="enableDetails"><div *ngFor="let i of showDetails(item)">{{i.label}}: {{i.value}}</div></td>
     <td><i style="font-size: 20px;" (click)="update(item.key)" class="material-icons">edit</i>
       <i style="font-size: 20px;" (click)="delete(item.key)" class="material-icons">delete</i></td>
   </tr>
