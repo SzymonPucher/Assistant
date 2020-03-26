@@ -21,6 +21,9 @@ import { MenuComponent } from './menu/menu.component';
 import { JournalComponent } from './journal/journal.component';
 import { SuggestionInputComponent } from './common/suggestion-input/suggestion-input.component';
 import { MultivalueListComponent } from './common/multivalue-list/multivalue-list.component';
+import { BudgetExpensesSimpleaddComponent } from './budget/budget-expenses/budget-expenses-simpleadd/budget-expenses-simpleadd.component';
+import { JournalEventComponent } from './journal/journal-event/journal-event.component';
+import { UniversalSimpleFormComponent } from './common/universal-simple-form/universal-simple-form.component';
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import { MultivalueListComponent } from './common/multivalue-list/multivalue-lis
     BudgetInnertransferAddComponent,
     JournalComponent,
     SuggestionInputComponent,
-    MultivalueListComponent
+    MultivalueListComponent,
+    BudgetExpensesSimpleaddComponent,
+    JournalEventComponent,
+    UniversalSimpleFormComponent
   ],
   imports: [
     BrowserModule,

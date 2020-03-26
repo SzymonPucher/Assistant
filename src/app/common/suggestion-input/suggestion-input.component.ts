@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-suggestion-input',
   templateUrl: './suggestion-input.component.html',
   styleUrls: ['./suggestion-input.component.scss']
 })
-export class SuggestionInputComponent implements OnInit, AfterViewChecked {
+export class SuggestionInputComponent {
 
   @Input('inputType')
   inputType: string;
@@ -24,11 +24,6 @@ export class SuggestionInputComponent implements OnInit, AfterViewChecked {
   constructor() {
     this.include = true;
     this.suggs = [];
-  }
-
-  ngOnInit() { 
-  }
-  ngAfterViewChecked(){
   }
 
   setLabel() {

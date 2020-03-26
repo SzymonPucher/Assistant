@@ -1,8 +1,8 @@
 <form (ngSubmit)="onSubmit()" id='aform' (keyup)="calculate_all_suggestions()">
-  <div *ngFor="let item of fields">
-    <app-suggestion-input inpLabel={{item}}></app-suggestion-input>
-  </div>
-  <button type="submit" id="sbmbtn">Submit</button>
-  <button type="button" (click)="addFormField('New field')">Add form field</button>
-  <button type="button" (click)="calculate_all_suggestions()">Calculate suggestions</button>
-</form> 
+    <div *ngFor="let item of fields">
+        <app-suggestion-input inpLabel={{item}}></app-suggestion-input>
+    </div>
+    <button type="submit" id="sbmbtn">Submit</button>
+    <button type="button" (click)="addFormField('New field')">Add form field</button>
+    <button type="button" (click)="calculate_all_suggestions()">Calculate suggestions</button>
+</form>

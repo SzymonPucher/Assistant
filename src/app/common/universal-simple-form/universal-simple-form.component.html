@@ -1,0 +1,5 @@
+<form (ngSubmit)="onSubmit()">
+    <app-suggestion-input *ngFor="let item of fields" inpLabel={{item}}></app-suggestion-input>
+    <div id="add_form_field_button" (click)="addFormField('New field')"></div>
+    <button type="submit" id="sbmbtn">Submit</button>
+</form>
