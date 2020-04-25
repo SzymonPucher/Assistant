@@ -1,0 +1,68 @@
+<div *ngIf="!show_final_form" class="container">
+  <mat-card class="product-card" *ngFor="let item of expenses_list">
+    <mat-card-header>
+      <mat-card-title>{{ item.Product }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ item.Price }} {{ item.Currency }} | {{ item.Category }} -
+        {{ item.Subcategory }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content
+      *ngIf="getItemProperties(item).length > 0"
+      class="propBox"
+    >
+      <mat-card class="prop" *ngFor="let property of getItemProperties(item)">
+        {{ property }}: {{ item[property] }}
+      </mat-card>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button mat-button (click)="addToBasket(item)">ADD</button>
+      <button mat-button disabled>EDIT AND ADD</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<button mat-fab class="hovering_apply" (click)="apply()" color="primary">
+  +{{ basket.length }}
+</button>
+<div *ngIf="show_final_form" class="form_container">
+  <mat-card>
+    <form [formGroup]="basketForm" class="final_form">
+      <mat-form-field  color="accent">
+        <mat-label>Locations</mat-label>
+        <input matInput formControlName="Location" />
+      </mat-form-field>
+      <br />
+      <mat-form-field  color="accent">
+        <mat-label>Vendor Type</mat-label>
+        <input matInput formControlName="VendorType" />
+      </mat-form-field>
+      <br />
+      <mat-form-field  color="accent">
+        <mat-label>Vendor</mat-label>
+        <input matInput formControlName="Vendor" />
+      </mat-form-field>
+      <br />
+      <mat-form-field  color="accent">
+        <mat-label>Date</mat-label>
+        <input type="date" matInput formControlName="Date" />
+      </mat-form-field>
+      <br />
+      <mat-form-field color="accent">
+        <mat-label>Payment Method</mat-label>
+        <input matInput formControlName="PaymentMethod" />
+      </mat-form-field>
+      <mat-card class="bucket-item" *ngFor="let item of basket">
+        {{ item.Product }}
+      </mat-card>
+      <br />
+      <button mat-button type="button" color="warn" (click)="toggle()">
+        Back
+      </button>
+      <button mat-button  color="accent" (click)="submit_items()" [disabled]="basketForm.invalid">Submit</button>
+    </form>
+  </mat-card>
+</div>
+
+

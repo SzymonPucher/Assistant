@@ -1,10 +1,14 @@
 <div id="menu_box">
-    <button>Budget</button>
-    <button>Journal</button>
-    <button>Nutrition</button>
-    <button>Organizer</button>
-    <div>|</div>
-    <button>+</button>
-    <button>M</button>
-    <button>A</button>
+  <button mat-button [matMenuTriggerFor]="budgetMenu">Budget</button>
+  <mat-menu #budgetMenu="matMenu">
+    <button routerLink="/budget/expenses/simpleadd" routerLinkActive="active" mat-menu-item>Add</button>
+    <button routerLink="/budget" routerLinkActive="active" mat-menu-item>Analyse</button>
+    <button routerLink="/budget/expenses/" routerLinkActive="active" mat-menu-item>Manage</button>
+  </mat-menu>
+
+  <button mat-button [matMenuTriggerFor]="journalMenu">Journal</button>
+  <mat-menu #journalMenu="matMenu">
+    <button routerLink="/journal/event" routerLinkActive="active" mat-menu-item>Event</button>
+    <button routerLink="/journal/pomodoro" routerLinkActive="active" mat-menu-item>Pomodoro</button>
+  </mat-menu>
 </div>

@@ -12,6 +12,8 @@ import { BudgetInnertransferComponent } from './budget/budget-innertransfer/budg
 import { BudgetInnertransferAddComponent } from './budget/budget-innertransfer/budget-innertransfer-add/budget-innertransfer-add.component';
 import { JournalComponent } from './journal/journal.component'
 import { JournalEventComponent } from './journal/journal-event/journal-event.component'
+import { JournalPomodoroComponent } from './journal/journal-pomodoro/journal-pomodoro.component';
+import { BudgetExpensesListaddComponent } from './budget/budget-expenses/budget-expenses-listadd/budget-expenses-listadd.component';
 
 
 const routes: Routes = [
@@ -19,6 +21,7 @@ const routes: Routes = [
   { path: 'budget/expenses', component: BudgetExpensesComponent },
   { path: 'budget/expenses/add', component: BudgetExpensesAddComponent },
   { path: 'budget/expenses/simpleadd', component: BudgetExpensesSimpleaddComponent },
+  { path: 'budget/expenses/listadd', component: BudgetExpensesListaddComponent },
   { path: 'budget/incomes', component: BudgetIncomesComponent },
   { path: 'budget/incomes/add', component: BudgetIncomesAddComponent },
   { path: 'budget/loans', component: BudgetLoansComponent },
@@ -26,7 +29,8 @@ const routes: Routes = [
   { path: 'budget/innertransfers', component: BudgetInnertransferComponent },
   { path: 'budget/innertransfers/add', component: BudgetInnertransferAddComponent },
   { path: 'journal', component: JournalComponent },
-  { path: 'journal/event', component: JournalEventComponent }
+  { path: 'journal/event', component: JournalEventComponent },
+  { path: 'journal/pomodoro', component: JournalPomodoroComponent }
 ];
 
 @NgModule({

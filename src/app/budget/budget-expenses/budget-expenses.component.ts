@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'
 import { map } from 'rxjs/operators';
-import { MultivalueListComponent } from '../../common/multivalue-list/multivalue-list.component'
 
 
 @Component({

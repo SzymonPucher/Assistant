@@ -1,0 +1,47 @@
+.product-card {
+    margin: 0.5rem;
+
+}
+
+.bucket-item {
+    margin: 0.3rem 0;
+}
+
+.all {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.prop {
+    background-color: #555555;
+    margin: 0 0.3rem;
+}
+
+.hovering_apply{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.final_form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+}
+
+.form_container{
+    display: flex;
+    justify-content: center;
+}
+
+.actions{
+
+}
+
+.propBox {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -24,6 +25,18 @@ import { MultivalueListComponent } from './common/multivalue-list/multivalue-lis
 import { BudgetExpensesSimpleaddComponent } from './budget/budget-expenses/budget-expenses-simpleadd/budget-expenses-simpleadd.component';
 import { JournalEventComponent } from './journal/journal-event/journal-event.component';
 import { UniversalSimpleFormComponent } from './common/universal-simple-form/universal-simple-form.component';
+import { JournalPomodoroComponent } from './journal/journal-pomodoro/journal-pomodoro.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
+
+
+import { ChartsModule } from 'ng2-charts';
+import { BudgetExpensesListaddComponent } from './budget/budget-expenses/budget-expenses-listadd/budget-expenses-listadd.component';
+
 
 
 @NgModule({
@@ -44,14 +57,25 @@ import { UniversalSimpleFormComponent } from './common/universal-simple-form/uni
     MultivalueListComponent,
     BudgetExpensesSimpleaddComponent,
     JournalEventComponent,
-    UniversalSimpleFormComponent
+    UniversalSimpleFormComponent,
+    JournalPomodoroComponent,
+    BudgetExpensesListaddComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    ChartsModule,
+    MatCardModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

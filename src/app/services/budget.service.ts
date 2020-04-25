@@ -10,12 +10,17 @@ export class BudgetService {
   expenses: Observable<any[]>;
 
   constructor(public db: AngularFireDatabase) { 
-    var today = new Date()
-    var date_str = (today.getFullYear() - 1).toString() + '-' + today.getMonth().toString() + '-' + today.getDate().toString()
-    this.expenses = db.list('expenses', ref => ref.orderByChild('Date').startAt(date_str)).valueChanges();
   }
 
   get_expenses(){
-    return this.expenses;
+    return this.db.list('expenses').valueChanges();
+  }
+
+  get_incomes(){
+    return this.db.list('incomes').valueChanges();
+  }
+
+  addOneDoc(obj, path){
+    this.db.list(path).push(obj);
   }
 }
