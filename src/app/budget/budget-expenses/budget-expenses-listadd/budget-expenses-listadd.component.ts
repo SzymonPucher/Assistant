@@ -12,11 +12,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class BudgetExpensesListaddComponent implements OnInit {
   expenses: Observable<any>;
   expenses_list: Array<any>;
+  all_expenses_raw: Array<any>;
 
   basket: Array<any>;
+  fields: Array<any>;
   show_final_form: boolean;
+  spinner: boolean;
+  show_add_form: boolean;
+  show_list_add: boolean;
 
-  bs;
+  bs: BudgetService;
+
+  newItemForm: FormGroup;
+  fieldTypes = ['text', 'number']
+
+  newFieldName = new FormControl('', Validators.required);
+  newFieldType = new FormControl('', Validators.required);
+
 
   basketForm = new FormGroup({
     Location: new FormControl('', Validators.required),
@@ -27,19 +39,49 @@ export class BudgetExpensesListaddComponent implements OnInit {
   });
   
   constructor(bs: BudgetService) {
+    this.bs = bs;
     this.expenses = bs.get_expenses();
     this.expenses_list = [];
+    this.all_expenses_raw = [];
     this.basket = [];
+    this.fields = [{name: 'Category', type: 'text'}, {name: 'Subcategory', type: 'text'}, {name: 'Product', type: 'text'}, {name: 'Price', type: 'number'}, {name: 'Currency', type: 'text'},]
+
+    this.show_add_form = false;
     this.show_final_form = false;
-    this.bs = bs;
+    this.spinner = true;
+    this.show_list_add = true;
+
+    let group={}    
+    this.fields.forEach(element=>{
+      group[element.name] = new FormControl('', Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
     
   }
 
   ngOnInit() {
     this.expenses.subscribe((data) => {
-      this.expenses_list = this.expenses_list.concat(data);
+      this.all_expenses_raw = this.all_expenses_raw.concat(data);
+      this.expenses_list = this.all_expenses_raw;
       this.makeExpensesUnique();
-      console.log(this.expenses_list);
+      this.spinner = false;
+    });
+  }
+
+  getBasketSum(){
+    let s = 0;
+    let currency = '';
+    this.basket.forEach(element => {
+      s += element.Price;
+      currency = element.Currency;
+    });
+    return s + ' ' + currency
+  }
+
+  deleteItemFromBasket(item){
+    this.basket = this.basket.filter((obj) => {
+      return obj !== item;
     });
   }
 
@@ -69,31 +111,48 @@ export class BudgetExpensesListaddComponent implements OnInit {
     this.expenses_list = arr;
   }
 
-  getItemProperties(item){
+  getItemProperties(item) {
     return Object.getOwnPropertyNames(item).filter((x) => !['Product', 'Category', 'Subcategory', 'Price', 'Currency'].includes(x))
   }
 
   addToBasket(item){
-    this.basket.push(item);
-    console.log(this.basket);
-    
+    this.basket.push(item);    
   }
 
-  apply() {
-    this.toggle();
-    console.log('Basket: ', this.basket);
+  showFinalForm() {
+    this.show_final_form = true;
+    this.show_add_form = false;
+    this.show_list_add = false;
   }
 
-  toggle(){
-    this.show_final_form = !this.show_final_form;
+  showAddForm(){
+    this.show_final_form = false;
+    this.show_add_form = true;
+    this.show_list_add = false;  
   }
 
-  submit_items() {
-    console.log(this.basketForm);
-    
-    let arr = [];
-    console.log('Submit: ', this.basket);
-    
+  showListAdd(){
+    this.show_final_form = false;
+    this.show_add_form = false;
+    this.show_list_add = true;    
+  }
+
+  addField(){
+    this.fields.push({name: this.newFieldName.value, type: this.newFieldType.value});    
+
+    let group={}    
+    this.fields.forEach(element=>{
+      group[element.name] = new FormControl(this.newItemForm.value[element.name], Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
+  }
+
+  addNewToBasket(){
+    this.basket.push(this.newItemForm.value);
+  }
+
+  submit_items() {  
     this.basket.forEach(element => {
       let newObj = element;
       newObj['Location'] = this.basketForm.value.Location;
@@ -101,9 +160,7 @@ export class BudgetExpensesListaddComponent implements OnInit {
       newObj['Vendor'] = this.basketForm.value.Vendor;
       newObj['Date'] = this.basketForm.value.Date;
       newObj['Payment Method'] = this.basketForm.value.PaymentMethod;
-      this.bs.addOneDoc(newObj, 'expenses_test');
+      this.bs.addOneDoc(newObj, 'expenses');
     });
-    
   }
-
 }

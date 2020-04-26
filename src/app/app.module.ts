@@ -36,6 +36,9 @@ import {MatInputModule} from '@angular/material';
 
 import { ChartsModule } from 'ng2-charts';
 import { BudgetExpensesListaddComponent } from './budget/budget-expenses/budget-expenses-listadd/budget-expenses-listadd.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -75,7 +78,10 @@ import { BudgetExpensesListaddComponent } from './budget/budget-expenses/budget-
     MatCardModule,
     FormsModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
