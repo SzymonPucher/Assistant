@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database'
 
 @Component({
   selector: 'app-budget-expenses-simpleadd',
@@ -9,22 +8,22 @@ import { AngularFireDatabase } from '@angular/fire/database'
 
 export class BudgetExpensesSimpleaddComponent {
 
-  fields: string[];
+  fields: Array<any>;
   doc_path: string;
 
 
-  constructor(public db: AngularFireDatabase) {
+  constructor() {
     this.fields = [
-      'Location',
-      'Vendor Type',
-      'Vendor',
-      'Payment Method',
-      'Currency',
-      'Date',
-      'Category',
-      'Subcategory',
-      'Product',
-      'Price'
+      {name: 'Location', type: 'text'},
+      {name: 'Vendor Type', type: 'text'},
+      {name: 'Vendor', type: 'text'},
+      {name: 'Payment Method', type: 'text'},
+      {name: 'Currency', type: 'text'},
+      {name: 'Date', type: 'date'},
+      {name: 'Category', type: 'text'},
+      {name: 'Subcategory', type: 'text'},
+      {name: 'Product', type: 'text'},
+      {name: 'Price', type: 'number'}
     ]
     this.doc_path = 'expenses';
   }

@@ -85,6 +85,23 @@ export class BudgetExpensesListaddComponent implements OnInit {
     });
   }
 
+  deleteFromField(item){
+    if(['Category', 'Subcategory', 'Product', 'Price', 'Currency'].includes(item.name)){
+      window.alert('Cannot delete standard products');
+      return
+    }
+    this.fields = this.fields.filter((obj) => {
+      return obj !== item;
+    });
+
+    let group={}    
+    this.fields.forEach(element=>{
+      group[element.name] = new FormControl(this.newItemForm.value[element.name], Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
+  }
+
   makeExpensesUnique() {
     let arr = [];
     this.expenses_list.forEach((element) => {
@@ -148,11 +165,25 @@ export class BudgetExpensesListaddComponent implements OnInit {
     this.newItemForm = new FormGroup(group);
   }
 
-  addNewToBasket(){
-    this.basket.push(this.newItemForm.value);
+  try_to_convert(value: any){
+    // try to convert to number with comma-dot transformation
+    var value_dots = value.replace(',', '.');
+    if(!isNaN(+value_dots)){
+      return +value_dots;
+    }
+    // return if value is a string
+    return value;
   }
 
-  submit_items() {  
+  addNewToBasket(){
+    var data = {}
+    Object.keys(this.newItemForm.value).forEach(key => {
+        data[key] = this.try_to_convert(this.newItemForm.value[key]);
+    });
+    this.basket.push(data);
+  }
+
+  submit_items() {
     this.basket.forEach(element => {
       let newObj = element;
       newObj['Location'] = this.basketForm.value.Location;

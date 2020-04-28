@@ -1,68 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database'
-import { Observable } from 'rxjs';
+import { Component, } from '@angular/core';
 
 @Component({
   selector: 'app-budget-incomes-add',
   templateUrl: './budget-incomes-add.component.html',
   styleUrls: ['./budget-incomes-add.component.scss']
 })
-export class BudgetIncomesAddComponent implements OnInit {
+export class BudgetIncomesAddComponent{
 
-  incomes: Observable<any[]>;
+  fields: Array<any>;
+  doc_path: string;
 
-  constructor(public db: AngularFireDatabase) {
-    this.incomes = db.list('incomes').valueChanges();
-  }
 
-  ngOnInit(){
-    this.addSuggestions();
-  }
-  
-  addSuggestions(){
-    var fields = {'Source': Array(), 'Destination': Array(), 'Currency': Array()}
-    this.incomes.subscribe(res => {
-      res.forEach(income => {
-        Object.keys(fields).forEach(key => {
-          if(!fields[key].includes(income[key])){
-            fields[key].push(income[key]);
-            this.addSuggestion(key, income[key]);
-          }
-        }); 
-      });
-    });
-  }
-  
-  addSuggestion(field, value){
-    var sugg_box = document.getElementById(field).getElementsByClassName('suggestions')[0];
-    var sf = document.createElement('div');
-    sf.innerHTML = value;
-    sf.onclick = function(){
-      sugg_box.parentElement.getElementsByTagName('input')[0].value = value;
-    }
-    sf.className = 'field_suggestion';
-    sugg_box.appendChild(sf);
-  }
-
-  try_to_convert(value){
-    if(!isNaN(+value)){
-      return +value;
-    }
-    return value;
-  }
-
-  onSubmit() {
-    var inputs = document.getElementsByTagName('input');
-    var labels = ['Date', 'Source', 'Destination', 'Amount', 'Currency']
-    if(inputs.length != 5){
-      alert('Incorrect number of inputs!');
-      return;
-    }
-    var data = {}
-    for (var i = 0; i < 5; i++) {
-      data[labels[i]] = this.try_to_convert(inputs[i].value)
-    }
-    this.db.list('incomes').push(data);
+  constructor() {
+    this.fields = [
+      {name: 'Date', type: 'date'},
+      {name: 'Source', type: 'text'},
+      {name: 'Destination', type: 'text'},
+      {name: 'Amount', type: 'number'},
+      {name: 'Currency', type: 'text'}
+    ]
+    this.doc_path = 'incomes';
   }
 
 }
