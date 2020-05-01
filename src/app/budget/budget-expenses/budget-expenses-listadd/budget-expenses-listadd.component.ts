@@ -76,6 +76,7 @@ export class BudgetExpensesListaddComponent implements OnInit {
       s += element.Price;
       currency = element.Currency;
     });
+    s = Math.round(s * 100) / 100
     return s + ' ' + currency
   }
 
@@ -178,9 +179,27 @@ export class BudgetExpensesListaddComponent implements OnInit {
   addNewToBasket(){
     var data = {}
     Object.keys(this.newItemForm.value).forEach(key => {
-        data[key] = this.try_to_convert(this.newItemForm.value[key]);
+        data[key] = this.try_to_convert(this.newItemForm.value[key].toString());
     });
     this.basket.push(data);
+  }
+
+  editAndAdd(item) {
+
+    
+    this.fields = [{name: 'Category', type: 'text'}, {name: 'Subcategory', type: 'text'}, {name: 'Product', type: 'text'}, {name: 'Price', type: 'number'}, {name: 'Currency', type: 'text'},]
+    let group={}
+    Object.keys(item).forEach(element=>{
+      if (!this.fields.map(x => x.name).includes(element)){
+        this.fields.push({name: element, type: 'text'});   
+      } 
+
+      group[element] = new FormControl(item[element], Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
+
+    this.showAddForm();
   }
 
   submit_items() {

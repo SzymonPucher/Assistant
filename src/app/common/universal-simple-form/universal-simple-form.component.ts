@@ -1,4 +1,4 @@
-import { Component, ViewChildren, QueryList, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -7,43 +7,42 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './universal-simple-form.component.html',
   styleUrls: ['./universal-simple-form.component.scss']
 })
-export class UniversalSimpleFormComponent implements OnInit {
+export class UniversalSimpleFormComponent implements OnChanges {
 
   @Input('fields')
   fields: Array<any>;
-
-  countAdded: number;
-
-  fieldTypes: Array<string>;
-
-  simpleForm: FormGroup;
-
-  newFieldName = new FormControl('', Validators.required);
-  newFieldType = new FormControl('', Validators.required);
   
   @Input('doc_path')
   doc_path: string;
 
+  @Input('update_key')
+  update_key: string;
+
+
+  simpleForm: FormGroup;
+  newFieldName: FormControl;
+  newFieldType: FormControl;
+  
+  fieldTypes: Array<string>;
+  
+  countAdded: number;
+  
+
   constructor(public db: AngularFireDatabase) {
+    this.newFieldName = new FormControl('', Validators.required);
+    this.newFieldType = new FormControl('', Validators.required);
     this.countAdded = 0;
     this.fieldTypes = ['text', 'number', 'date']
-
    }
 
-   ngOnInit(){
-    
-    let group={}    
-    this.fields.forEach(element=>{
-      group[element.name] = new FormControl('', Validators.required);  
-    })
-
-    this.simpleForm = new FormGroup(group);
+   ngOnChanges(){
+      this.updateForm();      
    }
 
   updateForm(){
     let group={}    
     this.fields.forEach(element=>{
-      group[element.name] = new FormControl(this.simpleForm.value[element.name], Validators.required);  
+      group[element.name] = new FormControl(element.value ? element.value : '', Validators.required);  
     })
 
     this.simpleForm = new FormGroup(group);
@@ -73,11 +72,20 @@ export class UniversalSimpleFormComponent implements OnInit {
 
 
   onSubmit() {
-    var data = {}
+    let data = {}
+    
     Object.keys(this.simpleForm.value).forEach(key => {
-        data[key] = this.try_to_convert(this.simpleForm.value[key]);
+        data[key] = this.try_to_convert(this.simpleForm.value[key].toString());
     });
-    this.db.list(this.doc_path).push(data);
-    this.countAdded += 1;
+
+    if (this.update_key)  {
+      this.db.object(this.doc_path + '/' + this.update_key).update(data);
+    }
+    else {
+      this.db.list(this.doc_path).push(data);
+      this.countAdded += 1;
+    }
+
   }
+
 }

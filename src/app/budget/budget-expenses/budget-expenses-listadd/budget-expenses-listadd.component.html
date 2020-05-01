@@ -1,12 +1,3 @@
-<div class="container">
-  <button mat-raised-button class="nav_button" (click)="showListAdd()">
-    Show list add
-  </button>
-  <button mat-raised-button class="nav_button" (click)="showAddForm()">
-    Show add form
-  </button>
-</div>
-
 <div *ngIf="show_list_add" class="container">
   <mat-spinner *ngIf="spinner"></mat-spinner>
   <mat-card class="product-card" *ngFor="let item of expenses_list">
@@ -29,7 +20,7 @@
 
     <mat-card-actions class="actions">
       <button mat-button (click)="addToBasket(item)">ADD</button>
-      <button mat-button disabled>EDIT AND ADD</button>
+      <button mat-button (click)="editAndAdd(item)">EDIT AND ADD</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -63,12 +54,12 @@
       </mat-form-field>
       <mat-card class="basket-item" *ngFor="let item of basket">
         <span>{{ item.Product }}</span>
-        <button mat-icon-button (click)="deleteItemFromBasket(item)"><mat-icon>delete</mat-icon></button>
+        <button mat-icon-button (click)="deleteItemFromBasket(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-card>
       <br />
-      <mat-card >
-        Total: {{ getBasketSum() }}
-      </mat-card>
+      <mat-card> Total: {{ getBasketSum() }} </mat-card>
       <br />
       <div class="buttons">
         <button
@@ -92,8 +83,17 @@
     <form [formGroup]="newItemForm" class="final_form">
       <mat-form-field *ngFor="let field of fields" color="accent">
         <mat-label>{{ field.name }}</mat-label>
-        <input matInput type="{{ field.type }}" formControlName="{{ field.name }}" />
-        <button matSuffix mat-icon-button type="button" (click)="deleteFromField(field)">
+        <input
+          matInput
+          type="{{ field.type }}"
+          formControlName="{{ field.name }}"
+        />
+        <button
+          matSuffix
+          mat-icon-button
+          type="button"
+          (click)="deleteFromField(field)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </mat-form-field>
@@ -105,7 +105,10 @@
         <mat-form-field color="accent">
           <mat-label>Field type</mat-label>
           <mat-select [formControl]="newFieldType">
-            <mat-option *ngFor="let fieldType of fieldTypes" [value]="fieldType">
+            <mat-option
+              *ngFor="let fieldType of fieldTypes"
+              [value]="fieldType"
+            >
               {{ fieldType }}
             </mat-option>
           </mat-select>
@@ -137,7 +140,15 @@
 </div>
 
 <button
-  *ngIf="!show_final_form"
+  mat-fab
+  class="show_add_form_btn"
+  (click)="showAddForm()"
+  color="accent"
+>
+<mat-icon>add_circle</mat-icon>
+</button>
+
+<button
   mat-fab
   class="hovering_apply"
   (click)="showFinalForm()"
