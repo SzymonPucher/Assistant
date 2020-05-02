@@ -202,7 +202,8 @@ export class BudgetExpensesListaddComponent implements OnInit {
     this.showAddForm();
   }
 
-  submit_items() {
+  submitItems() {
+    let i = 0;
     this.basket.forEach(element => {
       let newObj = element;
       newObj['Location'] = this.basketForm.value.Location;
@@ -211,6 +212,9 @@ export class BudgetExpensesListaddComponent implements OnInit {
       newObj['Date'] = this.basketForm.value.Date;
       newObj['Payment Method'] = this.basketForm.value.PaymentMethod;
       this.bs.addOneDoc(newObj, 'expenses');
+      i++;
     });
+    window.alert(`Added ${i} items`);
+    
   }
 }

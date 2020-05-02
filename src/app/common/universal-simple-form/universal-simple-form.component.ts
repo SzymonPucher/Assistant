@@ -48,6 +48,17 @@ export class UniversalSimpleFormComponent implements OnChanges {
     this.simpleForm = new FormGroup(group);
   }
 
+  getKeys(){    
+    return Object.keys(this.simpleForm.value);
+  }
+
+  getTypeFromFields(key) {
+    let f = this.fields.filter(x => x.name === key)
+    console.log(f[0].type);
+    
+    return f[0].type;
+  }
+
   addFormField() {
     this.fields.push({name: this.newFieldName.value, type: this.newFieldType.value});    
     this.updateForm();

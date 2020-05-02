@@ -39,6 +39,7 @@ import { BudgetExpensesListaddComponent } from './budget/budget-expenses/budget-
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -81,7 +82,8 @@ import {MatSelectModule} from '@angular/material/select';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

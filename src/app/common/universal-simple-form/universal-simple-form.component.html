@@ -1,12 +1,12 @@
 <div class="container">
   <mat-card class="form-wrapper">
     <form [formGroup]="simpleForm">
-      <mat-form-field *ngFor="let field of fields" color="accent">
-        <mat-label>{{ field.name }}</mat-label>
+      <mat-form-field *ngFor="let field of getKeys()" color="accent">
+        <mat-label>{{ field }}</mat-label>
         <input
           matInput
-          type="{{ field.type }}"
-          formControlName="{{ field.name }}"
+          type="{{ getTypeFromFields(field) }}"
+          formControlName="{{ field }}"
         />
         <button
           matSuffix
@@ -49,13 +49,22 @@
 
 
       <div class="buttons">
-        <button
+        <button *ngIf="!update_key"
           mat-button
           color="accent"
           (click)="onSubmit()"
           [disabled]="simpleForm.invalid"
         >
           Submit +{{countAdded}}
+        </button>
+
+        <button *ngIf="update_key"
+          mat-button
+          color="accent"
+          (click)="onSubmit()"
+          [disabled]="simpleForm.invalid"
+        >
+          Save
         </button>
         
       </div>

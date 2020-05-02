@@ -1,43 +1,76 @@
-<button (click)="toggleDetails()">Toggle Details</button>
 
-<div *ngIf="fields.length > 0" class="edit_popup">
+<div
+  *ngIf="displayItems.size == 0"
+  style="display: flex; justify-content: center;"
+>
+  <mat-spinner></mat-spinner>
+</div>
 
+<div *ngIf="displayItems.size > 0">
+  <div *ngFor="let k of getMapKeys(displayItems)">
+    <hr />
+    <div style="display: flex; justify-content: center;">
+      <h3>{{ k }}</h3>
+    </div>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+      <mat-card
+        *ngFor="let v of getMapKeys(displayItems.get(k))"
+        style="margin: 0.3rem;"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ v }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ getSumInMap(k, v) }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div
+            *ngFor="let item of displayItems.get(k).get(v)"
+            style="display: flex; justify-content: space-between;"
+          >
+            <mat-card
+              style="
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                background-color: #555555;
+                margin: 0.3rem;
+              "
+            >
+              <div style="margin-right: 1rem;">{{ item.Product }}</div>
+              <div>{{ item.Price }} {{ item.Currency }}</div>
+            </mat-card>
+            <button mat-button (click)="update(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<mat-card *ngIf="fields.length > 0" class="edit_popup">
   <app-universal-simple-form
     [fields]="fields"
     doc_path="{{ doc_path }}"
     update_key="{{ update_key }}"
   ></app-universal-simple-form>
-  <button mat-raised-button (click)="closeEdit()" style="width: 100%;">Close</button>
+  <button
+    mat-raised-button
+    color="warn"
+    (dblclick)="delete(update_key)"
+    style="width: 40%; margin: 1rem;"
+  >
+    Delete
+  </button>
 
-</div>
-<table>
-  <tr>
-    <th *ngIf="!enableDetails">Date</th>
-    <th *ngIf="!enableDetails">Product</th>
-    <th *ngIf="!enableDetails">Price</th>
-    <th *ngIf="enableDetails">Details</th>
-    <th style="width: 50px;">Action</th>
-  </tr>
-  <tr *ngFor="let item of (items | async).reverse()">
-    <td *ngIf="!enableDetails">{{ item.Date }}</td>
-    <td *ngIf="!enableDetails">{{ item.Product }}</td>
-    <td *ngIf="!enableDetails">{{ item.Price }} {{ item.Currency }}</td>
-
-    <td *ngIf="enableDetails">
-      <div *ngFor="let i of showDetails(item)">
-        {{ i.label }}: {{ i.value }}
-      </div>
-    </td>
-    <td>
-      <i style="font-size: 20px;" (click)="update(item)" class="material-icons"
-        >edit</i
-      >
-      <i
-        style="font-size: 20px;"
-        (click)="delete(item.key)"
-        class="material-icons"
-        >delete</i
-      >
-    </td>
-  </tr>
-</table>
+  <button
+    mat-raised-button
+    (click)="closeEdit()"
+    style="width: 40%; margin: 1rem;"
+  >
+    Close
+  </button>
+</mat-card>

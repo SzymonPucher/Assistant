@@ -21,6 +21,6 @@ export class BudgetService {
   }
 
   addOneDoc(obj, path){
-    this.db.list(path).push(obj);
+    return this.db.list(path).push(obj);
   }
 }
