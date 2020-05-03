@@ -19,9 +19,7 @@ import { BudgetInnertransferComponent } from "./budget/budget-innertransfer/budg
 import { BudgetInnertransferAddComponent } from "./budget/budget-innertransfer/budget-innertransfer-add/budget-innertransfer-add.component";
 import { MenuComponent } from "./menu/menu.component";
 import { JournalComponent } from "./journal/journal.component";
-import { SuggestionInputComponent } from "./shared/suggestion-input/suggestion-input.component";
 import { MultivalueListComponent } from "./shared/multivalue-list/multivalue-list.component";
-import { BudgetExpensesSimpleaddComponent } from "./budget/budget-expenses/budget-expenses-simpleadd/budget-expenses-simpleadd.component";
 import { JournalEventComponent } from "./journal/journal-event/journal-event.component";
 import { UniversalSimpleFormComponent } from "./shared/universal-simple-form/universal-simple-form.component";
 import { JournalPomodoroComponent } from "./journal/journal-pomodoro/journal-pomodoro.component";
@@ -33,7 +31,6 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material";
 
 import { ChartsModule } from "ng2-charts";
-import { BudgetExpensesListaddComponent } from "./budget/budget-expenses/budget-expenses-listadd/budget-expenses-listadd.component";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from "@angular/material/select";
@@ -53,13 +50,10 @@ import { MatDividerModule } from "@angular/material/divider";
     BudgetInnertransferComponent,
     BudgetInnertransferAddComponent,
     JournalComponent,
-    SuggestionInputComponent,
     MultivalueListComponent,
-    BudgetExpensesSimpleaddComponent,
     JournalEventComponent,
     UniversalSimpleFormComponent,
     JournalPomodoroComponent,
-    BudgetExpensesListaddComponent,
   ],
   imports: [
     BrowserModule,

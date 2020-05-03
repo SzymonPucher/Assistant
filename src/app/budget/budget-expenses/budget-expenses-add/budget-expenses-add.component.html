@@ -1,8 +1,158 @@
-<form (ngSubmit)="onSubmit()" id='aform' (keyup)="calculate_all_suggestions()">
-    <div *ngFor="let item of fields">
-        <app-suggestion-input inpLabel={{item}}></app-suggestion-input>
-    </div>
-    <button type="submit" id="sbmbtn">Submit</button>
-    <button type="button" (click)="addFormField('New field')">Add form field</button>
-    <button type="button" (click)="calculate_all_suggestions()">Calculate suggestions</button>
-</form>
+<div *ngIf="show_list_add" class="container">
+  <mat-spinner *ngIf="spinner"></mat-spinner>
+  <mat-card class="product-card" *ngFor="let item of expenses_list">
+    <mat-card-header>
+      <mat-card-title>{{ item.Product }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ item.Price }} {{ item.Currency }} | {{ item.Category }} -
+        {{ item.Subcategory }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content
+      *ngIf="getItemProperties(item).length > 0"
+      class="propBox"
+    >
+      <mat-card class="prop" *ngFor="let property of getItemProperties(item)">
+        {{ property }}: {{ item[property] }}
+      </mat-card>
+    </mat-card-content>
+
+    <mat-card-actions class="actions">
+      <button mat-button (click)="addToBasket(item)">ADD</button>
+      <button mat-button (click)="editAndAdd(item)">EDIT AND ADD</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="show_final_form" class="container">
+  <mat-card class="form-wrapper">
+    <form [formGroup]="basketForm" class="final_form">
+      <mat-form-field color="accent">
+        <mat-label>Locations</mat-label>
+        <input matInput formControlName="Location" />
+      </mat-form-field>
+      <br />
+      <mat-form-field color="accent">
+        <mat-label>Vendor Type</mat-label>
+        <input matInput formControlName="VendorType" />
+      </mat-form-field>
+      <br />
+      <mat-form-field color="accent">
+        <mat-label>Vendor</mat-label>
+        <input matInput formControlName="Vendor" />
+      </mat-form-field>
+      <br />
+      <mat-form-field color="accent">
+        <mat-label>Date</mat-label>
+        <input type="date" matInput formControlName="Date" />
+      </mat-form-field>
+      <br />
+      <mat-form-field color="accent">
+        <mat-label>Payment Method</mat-label>
+        <input matInput formControlName="PaymentMethod" />
+      </mat-form-field>
+      <mat-card class="basket-item" *ngFor="let item of basket">
+        <span>{{ item.Product }}</span>
+        <button mat-icon-button (click)="deleteItemFromBasket(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card>
+      <br />
+      <mat-card> Total: {{ getBasketSum() }} </mat-card>
+      <br />
+      <div class="buttons">
+        <button
+          mat-button
+          color="accent"
+          (click)="submitItems()"
+          [disabled]="basketForm.invalid"
+        >
+          Submit
+        </button>
+        <button mat-button type="button" color="warn" (click)="showListAdd()">
+          Back
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+<div *ngIf="show_add_form" class="container">
+  <mat-card class="form-wrapper">
+    <form [formGroup]="newItemForm" class="final_form">
+      <mat-form-field *ngFor="let field of fields" color="accent">
+        <mat-label>{{ field.name }}</mat-label>
+        <input
+          matInput
+          type="{{ field.type }}"
+          formControlName="{{ field.name }}"
+        />
+        <button
+          matSuffix
+          mat-icon-button
+          type="button"
+          (click)="deleteFromField(field)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-card>
+        <mat-form-field color="accent">
+          <mat-label>Field name</mat-label>
+          <input matInput [formControl]="newFieldName" />
+        </mat-form-field>
+        <mat-form-field color="accent">
+          <mat-label>Field type</mat-label>
+          <mat-select [formControl]="newFieldType">
+            <mat-option
+              *ngFor="let fieldType of fieldTypes"
+              [value]="fieldType"
+            >
+              {{ fieldType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          mat-button
+          type="button"
+          (click)="addField()"
+          [disabled]="newFieldName.invalid || newFieldType.invalid"
+        >
+          Add new field
+        </button>
+      </mat-card>
+      <div class="buttons">
+        <button
+          mat-button
+          color="accent"
+          (click)="addNewToBasket()"
+          [disabled]="newItemForm.invalid"
+        >
+          Add to basket
+        </button>
+        <button mat-button type="button" color="warn" (click)="showListAdd()">
+          Back
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
+<button
+  mat-fab
+  class="show_add_form_btn"
+  (click)="showAddForm()"
+  color="accent"
+>
+<mat-icon>add_circle</mat-icon>
+</button>
+
+<button
+  mat-fab
+  class="hovering_apply"
+  (click)="showFinalForm()"
+  color="primary"
+>
+  +{{ basket.length }}
+</button>

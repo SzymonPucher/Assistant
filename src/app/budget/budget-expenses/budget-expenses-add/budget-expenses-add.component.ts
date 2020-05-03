@@ -1,145 +1,221 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database'
-import { Observable } from 'rxjs';
-import { SuggestionInputComponent } from 'src/app/shared/suggestion-input/suggestion-input.component';
-import { BudgetService } from 'src/app/services/budget.service';
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+
+import { BudgetService } from "src/app/services/budget.service";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
-  selector: 'app-budget-expenses-add',
-  templateUrl: './budget-expenses-add.component.html',
-  styleUrls: ['./budget-expenses-add.component.scss']
+  selector: "app-budget-expenses-add",
+  templateUrl: "./budget-expenses-add.component.html",
+  styleUrls: ["./budget-expenses-add.component.scss"],
 })
 export class BudgetExpensesAddComponent implements OnInit {
+  expenses: Observable<any>;
+  expenses_list: Array<any>;
+  all_expenses_raw: Array<any>;
 
-  @ViewChildren(SuggestionInputComponent) sugg_inp_comps: QueryList<SuggestionInputComponent>
+  basket: Array<any>;
+  fields: Array<any>;
+  show_final_form: boolean;
+  spinner: boolean;
+  show_add_form: boolean;
+  show_list_add: boolean;
 
-  itemValue = Array();
-  items: Observable<any[]>;
-  fields = Array();
+  bs: BudgetService;
 
-  constructor(public db: AngularFireDatabase, public budgetService: BudgetService) {
+  newItemForm: FormGroup;
+  fieldTypes = ['text', 'number']
 
-    this.items = budgetService.getExpenses();
-    this.addFormFields();
+  newFieldName = new FormControl('', Validators.required);
+  newFieldType = new FormControl('', Validators.required);
 
-  }
 
-  addFormFields(filter_options = undefined) {
-    this.items.subscribe(
-      (val) => {
-        if (filter_options) {
-          val = this.filterFieldOptions(val, filter_options);
-        }
-        if (val.length > 0) {
-          this.fields = Object.keys(val[0]);
-          val.forEach(dict => {
-            this.fields = this.fields.filter(value => Object.keys(dict).includes(value))
-          });
-        }
-      });
-  }
+  basketForm = new FormGroup({
+    Location: new FormControl('', Validators.required),
+    VendorType: new FormControl('', Validators.required),
+    Vendor: new FormControl('', Validators.required),
+    Date: new FormControl('', Validators.required),
+    PaymentMethod: new FormControl('', Validators.required), 
+  });
+  
+  constructor(bs: BudgetService) {
+    this.bs = bs;
+    this.expenses = bs.getExpenses();
+    this.expenses_list = [];
+    this.all_expenses_raw = [];
+    this.basket = [];
+    this.fields = [{name: 'Category', type: 'text'}, {name: 'Subcategory', type: 'text'}, {name: 'Product', type: 'text'}, {name: 'Price', type: 'number'}, {name: 'Currency', type: 'text'},]
 
-  filterFieldOptions(val, filter_options) {
-    filter_options.forEach(element => {
-      val = val.filter(value => value[element.label] === element.value)
-    });
-    return val
+    this.show_add_form = false;
+    this.show_final_form = false;
+    this.spinner = true;
+    this.show_list_add = true;
+
+    let group={}    
+    this.fields.forEach(element=>{
+      group[element.name] = new FormControl('', Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
+    
   }
 
   ngOnInit() {
-  }
-
-  get_sugg_inp_comps() {
-    return this.sugg_inp_comps.filter(obj => obj.include);
-  }
-
-  get_all_fields_with_values() {
-    var fields_with_values = []
-    this.get_sugg_inp_comps().forEach(element => {
-      if (element) {
-        if (element.getValue().length > 0) {
-          fields_with_values.push({ label: element.inpLabel, value: element.getValue() })
-        }
-      }
-    });
-    return fields_with_values;
-  }
-
-  get_all_fields_without_values() {
-    var fields_without_values = []
-    this.get_sugg_inp_comps().forEach(element => {
-      if (element.getValue().length == 0) {
-        fields_without_values.push(element)
-      }
-    });
-    return fields_without_values;
-  }
-
-  reset_all_suggestions() {
-    this.get_sugg_inp_comps().forEach(element => {
-      element.resetSuggestions();
+    this.expenses.subscribe((data) => {
+      this.all_expenses_raw = this.all_expenses_raw.concat(data);
+      this.expenses_list = this.all_expenses_raw;
+      this.makeExpensesUnique();
+      this.spinner = false;
     });
   }
 
-  calculate_all_suggestions() {
-    var fwv = this.get_all_fields_with_values();
-    if (fwv.length == 0) {
-      return;
+  getBasketSum(){
+    let s = 0;
+    let currency = '';
+    this.basket.forEach(element => {
+      s += element.Price;
+      currency = element.Currency;
+    });
+    s = Math.round(s * 100) / 100
+    return s + ' ' + currency
+  }
+
+  deleteItemFromBasket(item){
+    this.basket = this.basket.filter((obj) => {
+      return obj !== item;
+    });
+  }
+
+  deleteFromField(item){
+    if(['Category', 'Subcategory', 'Product', 'Price', 'Currency'].includes(item.name)){
+      window.alert('Cannot delete standard products');
+      return
     }
-    this.addFormFields(fwv);
-    var fwov = this.get_all_fields_without_values();
-    this.reset_all_suggestions();
-    this.items.subscribe(
-      (val) => {
-        val.forEach(element => {
-          var is_matched = true;
+    this.fields = this.fields.filter((obj) => {
+      return obj !== item;
+    });
 
+    let group={}    
+    this.fields.forEach(element=>{
+      group[element.name] = new FormControl(this.newItemForm.value[element.name], Validators.required);  
+    })
 
-          fwv.forEach(el => {
-            if (!Object.keys(element).includes(el.label) || !(element[el.label] === el.value)) {
-              is_matched = false;
-            }
-          });
-          if (is_matched) {
-            fwov.forEach(el => {
-              if (element[el.inpLabel]) {
-                el.addSuggestion(element[el.inpLabel]);
-              }
-            });
-          }
-        });
-        this.get_sugg_inp_comps().forEach(element => {
-          if (element.suggs.length == 1) {
-            element.setValue(element.suggs[0]);
-          }
-        });
-      });
+    this.newItemForm = new FormGroup(group);
   }
 
-  addFormField(label_inp = '', type_inp = 'text') {
-    this.fields.push({ label: label_inp, type_of_field: type_inp })
+  makeExpensesUnique() {
+    let arr = [];
+    this.expenses_list.forEach((element) => {
+      let newObj = element;
+      delete newObj["Date"];
+      delete newObj["Payment Method"];
+      delete newObj["Location"];
+      delete newObj["Vendor"];
+      delete newObj["Vendor Type"];
+
+      newObj.hash = JSON.stringify(newObj);
+      arr.push(newObj);
+    });
+    arr = arr.filter((obj, pos, arr) => {
+      return arr.map((mapObj) => mapObj.hash).indexOf(obj.hash) === pos;
+    });
+    
+    arr.forEach(element => {
+      delete element.hash
+    });
+
+    arr.sort((a, b) => (a.Product > b.Product) ? 1 : -1)
+
+    this.expenses_list = arr;
   }
 
-  deleteFormField(label) {
-    this.fields = this.fields.filter(obj => obj !== label);
+  getItemProperties(item) {
+    return Object.getOwnPropertyNames(item).filter((x) => !['Product', 'Category', 'Subcategory', 'Price', 'Currency'].includes(x))
   }
 
-  try_to_convert(value){
-    if(!isNaN(+value)){
-      return +value;
+  addToBasket(item){
+    this.basket.push(item);    
+  }
+
+  showFinalForm() {
+    this.show_final_form = true;
+    this.show_add_form = false;
+    this.show_list_add = false;
+  }
+
+  showAddForm(){
+    this.show_final_form = false;
+    this.show_add_form = true;
+    this.show_list_add = false;  
+  }
+
+  showListAdd(){
+    this.show_final_form = false;
+    this.show_add_form = false;
+    this.show_list_add = true;    
+  }
+
+  addField(){
+    this.fields.push({name: this.newFieldName.value, type: this.newFieldType.value});    
+
+    let group={}    
+    this.fields.forEach(element=>{
+      group[element.name] = new FormControl(this.newItemForm.value[element.name], Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
+  }
+
+  try_to_convert(value: any){
+    // try to convert to number with comma-dot transformation
+    var value_dots = value.replace(',', '.');
+    if(!isNaN(+value_dots)){
+      return +value_dots;
     }
+    // return if value is a string
     return value;
   }
 
-  onSubmit() {
+  addNewToBasket(){
     var data = {}
-    this.get_sugg_inp_comps().forEach(element => {
-      if (element.include) {
-        if(element.getValue().length > 0){
-          data[element.inpLabel] = this.try_to_convert(element.getValue());
-        }
-      }
+    Object.keys(this.newItemForm.value).forEach(key => {
+        data[key] = this.try_to_convert(this.newItemForm.value[key].toString());
     });
-    this.db.list('expenses').push(data);
+    this.basket.push(data);
+  }
+
+  editAndAdd(item) {
+
+    
+    this.fields = [{name: 'Category', type: 'text'}, {name: 'Subcategory', type: 'text'}, {name: 'Product', type: 'text'}, {name: 'Price', type: 'number'}, {name: 'Currency', type: 'text'},]
+    let group={}
+    Object.keys(item).forEach(element=>{
+      if (!this.fields.map(x => x.name).includes(element)){
+        this.fields.push({name: element, type: 'text'});   
+      } 
+
+      group[element] = new FormControl(item[element], Validators.required);  
+    })
+
+    this.newItemForm = new FormGroup(group);
+
+    this.showAddForm();
+  }
+
+  submitItems() {
+    let i = 0;
+    this.basket.forEach(element => {
+      let newObj = element;
+      newObj['Location'] = this.basketForm.value.Location;
+      newObj['Vendor Type'] = this.basketForm.value.VendorType;
+      newObj['Vendor'] = this.basketForm.value.Vendor;
+      newObj['Date'] = this.basketForm.value.Date;
+      newObj['Payment Method'] = this.basketForm.value.PaymentMethod;
+      this.bs.addExpense(newObj);
+      i++;
+    });
+    window.alert(`Added ${i} items`);
+    
   }
 }

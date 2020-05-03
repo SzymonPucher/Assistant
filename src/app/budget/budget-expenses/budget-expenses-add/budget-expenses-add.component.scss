@@ -1,8 +1,78 @@
-#form_title{
-    padding: 10px;
-    letter-spacing: 10px;
-}
-#aform {
-    margin: auto;
+.product-card {
+    margin: 0.5rem;
     width: 500px;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    flex-wrap: wrap;
+}
+
+.form-wrapper {
+    margin: 0.5rem;
+}
+
+.basket-item {
+    margin: 0.3rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #555555;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+.nav_button {
+    margin: 0.4rem 0.2rem;
+}
+
+.all {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.prop {
+    background-color: #555555;
+    margin: 0.3rem !important;
+}
+
+.hovering_apply{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.show_add_form_btn {
+    position: fixed;
+    bottom: 3rem;
+    right: 1rem;
+}
+
+.final_form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+}
+
+.form_container{
+    display: flex;
+    justify-content: center;
+}
+
+.actions{
+
+}
+
+.propBox {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
