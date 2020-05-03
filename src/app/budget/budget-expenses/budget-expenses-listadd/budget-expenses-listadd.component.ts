@@ -40,7 +40,7 @@ export class BudgetExpensesListaddComponent implements OnInit {
   
   constructor(bs: BudgetService) {
     this.bs = bs;
-    this.expenses = bs.get_expenses();
+    this.expenses = bs.getExpenses();
     this.expenses_list = [];
     this.all_expenses_raw = [];
     this.basket = [];
@@ -211,7 +211,7 @@ export class BudgetExpensesListaddComponent implements OnInit {
       newObj['Vendor'] = this.basketForm.value.Vendor;
       newObj['Date'] = this.basketForm.value.Date;
       newObj['Payment Method'] = this.basketForm.value.PaymentMethod;
-      this.bs.addOneDoc(newObj, 'expenses');
+      this.bs.addExpense(newObj);
       i++;
     });
     window.alert(`Added ${i} items`);

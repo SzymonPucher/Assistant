@@ -1,18 +1,18 @@
 <div class="container">
   <mat-card class="form-wrapper">
     <form [formGroup]="simpleForm">
-      <mat-form-field *ngFor="let field of getKeys()" color="accent">
-        <mat-label>{{ field }}</mat-label>
+      <mat-form-field *ngFor="let fieldName of getFormKeys()" color="accent">
+        <mat-label>{{ fieldName }}</mat-label>
         <input
           matInput
-          type="{{ getTypeFromFields(field) }}"
-          formControlName="{{ field }}"
+          type="{{ getFieldType(fieldName) }}"
+          formControlName="{{ fieldName }}"
         />
         <button
           matSuffix
           mat-icon-button
           type="button"
-          (click)="deleteFormField(field)"
+          (click)="deleteFormField(fieldName)"
         >
           <mat-icon>delete</mat-icon>
         </button>
@@ -28,7 +28,7 @@
           <mat-label>Field type</mat-label>
           <mat-select [formControl]="newFieldType">
             <mat-option
-              *ngFor="let fieldType of fieldTypes"
+              *ngFor="let fieldType of allowedFieldTypes"
               [value]="fieldType"
             >
               {{ fieldType }}
@@ -45,20 +45,20 @@
           Add new field
         </button>
       </mat-card>
-      
-
 
       <div class="buttons">
-        <button *ngIf="!update_key"
+        <button
+          *ngIf="!update_key"
           mat-button
           color="accent"
           (click)="onSubmit()"
           [disabled]="simpleForm.invalid"
         >
-          Submit +{{countAdded}}
+          Submit +{{ countAdded }}
         </button>
 
-        <button *ngIf="update_key"
+        <button
+          *ngIf="update_key"
           mat-button
           color="accent"
           (click)="onSubmit()"
@@ -66,7 +66,6 @@
         >
           Save
         </button>
-        
       </div>
     </form>
   </mat-card>

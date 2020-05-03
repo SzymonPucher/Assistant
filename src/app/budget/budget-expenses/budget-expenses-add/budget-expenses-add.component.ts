@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database'
 import { Observable } from 'rxjs';
-import { SuggestionInputComponent } from 'src/app/common/suggestion-input/suggestion-input.component';
+import { SuggestionInputComponent } from 'src/app/shared/suggestion-input/suggestion-input.component';
 import { BudgetService } from 'src/app/services/budget.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class BudgetExpensesAddComponent implements OnInit {
 
   constructor(public db: AngularFireDatabase, public budgetService: BudgetService) {
 
-    this.items = budgetService.get_expenses();
+    this.items = budgetService.getExpenses();
     this.addFormFields();
 
   }

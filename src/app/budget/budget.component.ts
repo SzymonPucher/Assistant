@@ -31,8 +31,8 @@ export class BudgetComponent implements OnInit {
   all_incomes = 0;
 
   constructor(bs: BudgetService) {
-    this.expenses = bs.get_expenses();
-    this.incomes = bs.get_incomes();
+    this.expenses = bs.getExpenses();
+    this.incomes = bs.getIncomes();
 
     this.expenses_list = [];
     this.incomes_list = [];
