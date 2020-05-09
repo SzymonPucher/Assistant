@@ -1,14 +1,20 @@
 <div id="menu_box">
-  <button mat-button [matMenuTriggerFor]="budgetMenu">Budget</button>
-  <mat-menu #budgetMenu="matMenu">
-    <button routerLink="/budget/expenses/add" routerLinkActive="active" mat-menu-item>Add</button>
-    <button routerLink="/budget" routerLinkActive="active" mat-menu-item>Analyse</button>
-    <button routerLink="/budget/expenses/" routerLinkActive="active" mat-menu-item>Manage</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="journalMenu">Journal</button>
-  <mat-menu #journalMenu="matMenu">
-    <button routerLink="/journal/event" routerLinkActive="active" mat-menu-item>Event</button>
-    <button routerLink="/journal/pomodoro" routerLinkActive="active" mat-menu-item>Pomodoro</button>
-  </mat-menu>
+  <div *ngFor="let btn of buttons">
+    <button
+      *ngIf="btn.routerLink"
+      mat-icon-button
+      color="{{ btn.color }}"
+      routerLink="{{ btn.routerLink }}"
+    >
+      <mat-icon>{{ btn.iconName }}</mat-icon>
+    </button>
+    <button
+      *ngIf="!btn.routerLink"
+      mat-icon-button
+      color="{{ btn.color }}"
+      (click)="changeMenu(btn.iconName)"
+    >
+      <mat-icon>{{ btn.iconName }}</mat-icon>
+    </button>
+  </div>
 </div>
