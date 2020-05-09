@@ -1,14 +1,14 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-
-import { BudgetService } from "src/app/services/budget.service";
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { BudgetService } from 'src/app/services/budget.service';
+import Utils from 'src/app/shared/utils';
 
 @Component({
-  selector: "app-budget-expenses-add",
-  templateUrl: "./budget-expenses-add.component.html",
-  styleUrls: ["./budget-expenses-add.component.scss"],
+  selector: 'app-budget-expenses-add',
+  templateUrl: './budget-expenses-add.component.html',
+  styleUrls: ['./budget-expenses-add.component.scss'],
 })
 export class BudgetExpensesAddComponent implements OnInit {
   expenses: Observable<any>;
@@ -22,43 +22,44 @@ export class BudgetExpensesAddComponent implements OnInit {
   show_add_form: boolean;
   show_list_add: boolean;
 
-  bs: BudgetService;
-
   newItemForm: FormGroup;
-  fieldTypes = ['text', 'number']
+  fieldTypes = ['text', 'number'];
 
   newFieldName = new FormControl('', Validators.required);
   newFieldType = new FormControl('', Validators.required);
-
 
   basketForm = new FormGroup({
     Location: new FormControl('', Validators.required),
     VendorType: new FormControl('', Validators.required),
     Vendor: new FormControl('', Validators.required),
     Date: new FormControl('', Validators.required),
-    PaymentMethod: new FormControl('', Validators.required), 
+    PaymentMethod: new FormControl('', Validators.required),
   });
-  
-  constructor(bs: BudgetService) {
-    this.bs = bs;
-    this.expenses = bs.getExpenses();
+
+  constructor(private bs: BudgetService) {
+    this.expenses = this.bs.getExpenses();
     this.expenses_list = [];
     this.all_expenses_raw = [];
     this.basket = [];
-    this.fields = [{name: 'Category', type: 'text'}, {name: 'Subcategory', type: 'text'}, {name: 'Product', type: 'text'}, {name: 'Price', type: 'number'}, {name: 'Currency', type: 'text'},]
+    this.fields = [
+      { name: 'Category', type: 'text' },
+      { name: 'Subcategory', type: 'text' },
+      { name: 'Product', type: 'text' },
+      { name: 'Price', type: 'number' },
+      { name: 'Currency', type: 'text' },
+    ];
 
     this.show_add_form = false;
     this.show_final_form = false;
     this.spinner = true;
     this.show_list_add = true;
 
-    let group={}    
-    this.fields.forEach(element=>{
-      group[element.name] = new FormControl('', Validators.required);  
-    })
+    let group = {};
+    this.fields.forEach((element) => {
+      group[element.name] = new FormControl('', Validators.required);
+    });
 
     this.newItemForm = new FormGroup(group);
-    
   }
 
   ngOnInit() {
@@ -70,36 +71,43 @@ export class BudgetExpensesAddComponent implements OnInit {
     });
   }
 
-  getBasketSum(){
+  getBasketSum() {
     let s = 0;
     let currency = '';
-    this.basket.forEach(element => {
+    this.basket.forEach((element) => {
       s += element.Price;
       currency = element.Currency;
     });
-    s = Math.round(s * 100) / 100
-    return s + ' ' + currency
+    s = Utils.round(s, 2);
+    return s + ' ' + currency;
   }
 
-  deleteItemFromBasket(item){
+  deleteItemFromBasket(item) {
     this.basket = this.basket.filter((obj) => {
       return obj !== item;
     });
   }
 
-  deleteFromField(item){
-    if(['Category', 'Subcategory', 'Product', 'Price', 'Currency'].includes(item.name)){
+  deleteFromField(item) {
+    if (
+      ['Category', 'Subcategory', 'Product', 'Price', 'Currency'].includes(
+        item.name
+      )
+    ) {
       window.alert('Cannot delete standard products');
-      return
+      return;
     }
     this.fields = this.fields.filter((obj) => {
       return obj !== item;
     });
 
-    let group={}    
-    this.fields.forEach(element=>{
-      group[element.name] = new FormControl(this.newItemForm.value[element.name], Validators.required);  
-    })
+    let group = {};
+    this.fields.forEach((element) => {
+      group[element.name] = new FormControl(
+        this.newItemForm.value[element.name],
+        Validators.required
+      );
+    });
 
     this.newItemForm = new FormGroup(group);
   }
@@ -108,11 +116,11 @@ export class BudgetExpensesAddComponent implements OnInit {
     let arr = [];
     this.expenses_list.forEach((element) => {
       let newObj = element;
-      delete newObj["Date"];
-      delete newObj["Payment Method"];
-      delete newObj["Location"];
-      delete newObj["Vendor"];
-      delete newObj["Vendor Type"];
+      delete newObj['Date'];
+      delete newObj['Payment Method'];
+      delete newObj['Location'];
+      delete newObj['Vendor'];
+      delete newObj['Vendor Type'];
 
       newObj.hash = JSON.stringify(newObj);
       arr.push(newObj);
@@ -120,22 +128,25 @@ export class BudgetExpensesAddComponent implements OnInit {
     arr = arr.filter((obj, pos, arr) => {
       return arr.map((mapObj) => mapObj.hash).indexOf(obj.hash) === pos;
     });
-    
-    arr.forEach(element => {
-      delete element.hash
+
+    arr.forEach((element) => {
+      delete element.hash;
     });
 
-    arr.sort((a, b) => (a.Product > b.Product) ? 1 : -1)
+    arr.sort((a, b) => (a.Product > b.Product ? 1 : -1));
 
     this.expenses_list = arr;
   }
 
   getItemProperties(item) {
-    return Object.getOwnPropertyNames(item).filter((x) => !['Product', 'Category', 'Subcategory', 'Price', 'Currency'].includes(x))
+    return Object.getOwnPropertyNames(item).filter(
+      (x) =>
+        !['Product', 'Category', 'Subcategory', 'Price', 'Currency'].includes(x)
+    );
   }
 
-  addToBasket(item){
-    this.basket.push(item);    
+  addToBasket(item) {
+    this.basket.push(item);
   }
 
   showFinalForm() {
@@ -144,59 +155,59 @@ export class BudgetExpensesAddComponent implements OnInit {
     this.show_list_add = false;
   }
 
-  showAddForm(){
+  showAddForm() {
     this.show_final_form = false;
     this.show_add_form = true;
-    this.show_list_add = false;  
+    this.show_list_add = false;
   }
 
-  showListAdd(){
+  showListAdd() {
     this.show_final_form = false;
     this.show_add_form = false;
-    this.show_list_add = true;    
+    this.show_list_add = true;
   }
 
-  addField(){
-    this.fields.push({name: this.newFieldName.value, type: this.newFieldType.value});    
+  addField() {
+    this.fields.push({
+      name: this.newFieldName.value,
+      type: this.newFieldType.value,
+    });
 
-    let group={}    
-    this.fields.forEach(element=>{
-      group[element.name] = new FormControl(this.newItemForm.value[element.name], Validators.required);  
-    })
+    let group = {};
+    this.fields.forEach((element) => {
+      group[element.name] = new FormControl(
+        this.newItemForm.value[element.name],
+        Validators.required
+      );
+    });
 
     this.newItemForm = new FormGroup(group);
   }
 
-  try_to_convert(value: any){
-    // try to convert to number with comma-dot transformation
-    var value_dots = value.replace(',', '.');
-    if(!isNaN(+value_dots)){
-      return +value_dots;
-    }
-    // return if value is a string
-    return value;
-  }
-
-  addNewToBasket(){
-    var data = {}
-    Object.keys(this.newItemForm.value).forEach(key => {
-        data[key] = this.try_to_convert(this.newItemForm.value[key].toString());
+  addNewToBasket() {
+    var data = {};
+    Object.keys(this.newItemForm.value).forEach((key) => {
+      data[key] = Utils.try_to_convert(this.newItemForm.value[key].toString());
     });
     this.basket.push(data);
   }
 
   editAndAdd(item) {
+    this.fields = [
+      { name: 'Category', type: 'text' },
+      { name: 'Subcategory', type: 'text' },
+      { name: 'Product', type: 'text' },
+      { name: 'Price', type: 'number' },
+      { name: 'Currency', type: 'text' },
+    ];
+    let group = {};
+    Object.keys(item).forEach((element) => {
+      if (!this.fields.map((x) => x.name).includes(element)) {
+        this.fields.push({ name: element, type: 'text' });
+      }
 
-    
-    this.fields = [{name: 'Category', type: 'text'}, {name: 'Subcategory', type: 'text'}, {name: 'Product', type: 'text'}, {name: 'Price', type: 'number'}, {name: 'Currency', type: 'text'},]
-    let group={}
-    Object.keys(item).forEach(element=>{
-      if (!this.fields.map(x => x.name).includes(element)){
-        this.fields.push({name: element, type: 'text'});   
-      } 
-
-      group[element] = new FormControl(item[element], Validators.required);  
-    })
+      group[element] = new FormControl(item[element], Validators.required);
+    });
 
     this.newItemForm = new FormGroup(group);
 
@@ -205,7 +216,7 @@ export class BudgetExpensesAddComponent implements OnInit {
 
   submitItems() {
     let i = 0;
-    this.basket.forEach(element => {
+    this.basket.forEach((element) => {
       let newObj = element;
       newObj['Location'] = this.basketForm.value.Location;
       newObj['Vendor Type'] = this.basketForm.value.VendorType;
@@ -216,6 +227,5 @@ export class BudgetExpensesAddComponent implements OnInit {
       i++;
     });
     window.alert(`Added ${i} items`);
-    
   }
 }
