@@ -47,6 +47,7 @@ export class BudgetService {
   }
 
   public updateExpense(data: any, update_key: string) {
-    return this.db.object('expenses/' + update_key).update(data);
+    const path = 'expenses/' + update_key
+    return this.updateOneDoc(data, path);
   }
 }
