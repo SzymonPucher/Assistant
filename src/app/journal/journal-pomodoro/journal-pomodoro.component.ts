@@ -1,58 +1,62 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import { AngularFireDatabase } from '@angular/fire/database';
+
+import { JournalService } from 'src/app/services/journal.service';
+
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { PomodoroEvent } from 'src/app/models/pomodoro-event';
 
 @Component({
   selector: 'app-journal-pomodoro',
   templateUrl: './journal-pomodoro.component.html',
-  styleUrls: ['./journal-pomodoro.component.scss']
+  styleUrls: ['./journal-pomodoro.component.scss'],
 })
 export class JournalPomodoroComponent {
 
   counter$: Observable<number>;
 
-  @ViewChild('minutes', { static: false }) minutes: ElementRef;
-  @ViewChild('name', { static: false }) name: ElementRef;
-  @ViewChild('category', { static: false }) category: ElementRef;
+  pomodoroForm: FormGroup;
 
+  isCounterRunning: boolean;
 
+  constructor(public journalService: JournalService) {
 
+    this.pomodoroForm = new FormGroup({
+      category: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+      minutes: new FormControl('', Validators.required),
+    });
 
-  constructor(public db: AngularFireDatabase) {
-  }
-
-  addEvent(num){
-    let d = new Date();
-    let date = `${d.getFullYear()}-${d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()}-${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()} ${d.getHours() < 10 ? '0' + d.getHours() : d.getHours()}:${d.getMinutes()  < 10 ? '0' + d.getMinutes() : d.getMinutes()}`
-    d = new Date(d.getTime() - num * 1000)
-    let dates = `${d.getFullYear()}-${d.getMonth() < 10 ? '0' + d.getMonth() : d.getMonth()}-${d.getDate() < 10 ? '0' + d.getDate() : d.getDate()} ${d.getHours() < 10 ? '0' + d.getHours() : d.getHours()}:${d.getMinutes()  < 10 ? '0' + d.getMinutes() : d.getMinutes()}`
-
-    let event_data = {
-      category: this.category.nativeElement.value,
-      name: this.name.nativeElement.value,
-      finish: date,
-      start: dates,
-      type: 'pomodoro'
-    }
-    console.log(event_data);
-    this.db.list('events').push(event_data);
+    this.isCounterRunning = false;
   }
 
   run_counter() {
-    let num = this.minutes.nativeElement.value * 60;
-    const num_unchanged = this.minutes.nativeElement.value * 60;
-    this.counter$ = timer(0,1000).pipe(
+    this.isCounterRunning = true;
+
+    const category = this.pomodoroForm.value.category;
+    const name = this.pomodoroForm.value.name;
+    const start = new Date();
+    const duration = this.pomodoroForm.value.minutes;
+
+    let num = this.pomodoroForm.value.minutes * 60;
+
+    this.counter$ = timer(0, 1000).pipe(
       take(num),
       map(() => {
         --num;
-        if (num==0){
-          this.addEvent(num_unchanged);
+        if (num == 0) {
+
+          this.journalService.addPomodoroEvent(
+            new PomodoroEvent(category, name, start, duration)
+          );
+
+          this.isCounterRunning = false;
         }
+        
         return num;
       })
     );
   }
-
-
 }

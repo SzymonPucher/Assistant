@@ -1,8 +1,32 @@
-<h3>Category</h3>
-<input #category type="text">
-<h3>Name</h3>
-<input #name type="text">
-<h3>Minutes</h3>
-<input #minutes type="number">
-<h2>{{counter$ | async}}</h2>
-<button (click)="run_counter()">Start</button>
+<div class="container">
+    <mat-card class="form-wrapper">
+      <form *ngIf="!isCounterRunning" [formGroup]="pomodoroForm" (ngSubmit)="run_counter()">
+        <mat-form-field color="accent">
+          <mat-label>Category</mat-label>
+          <input matInput type="text" formControlName="category"/>
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" formControlName="name"/>
+          </mat-form-field>
+          <mat-form-field color="accent">
+            <mat-label>Minutes</mat-label>
+            <input matInput type="number" formControlName="minutes"/>
+          </mat-form-field>
+  
+        <div class="buttons">
+  
+          <button
+            mat-button
+            type="submit"
+            color="accent"
+            [disabled]="pomodoroForm.invalid"
+          >
+            Start
+          </button>
+        </div>
+      </form>
+      <h2 *ngIf="isCounterRunning">{{counter$ | async}}</h2>
+    </mat-card>
+  </div>
+  
