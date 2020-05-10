@@ -1,9 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
 import { AngularFireDatabase, AngularFireList } from "@angular/fire/database";
 import { map } from "rxjs/operators";
-import { stringify } from "querystring";
-import { MatSortHeader } from '@angular/material';
 
 @Component({
   selector: "app-budget-expenses",
@@ -23,12 +20,12 @@ export class BudgetExpensesComponent implements OnInit {
   enableDetails: boolean;
 
   constructor(db: AngularFireDatabase) {
-    this.itemsRef = db.list("expenses", (ref) => ref.orderByChild("Date"));
+    this.itemsRef = db.list("budget/expenses", (ref) => ref.orderByChild("Date"));
     // snapshotChanges().map() stores the key
     this.displayItems = new Map<String, Map<String, object[]>>();
     this.enableDetails = false;
     this.fields = [];
-    this.doc_path = "expenses";
+    this.doc_path = "budget/expenses";
   }
 
   ngOnInit() {
@@ -91,7 +88,7 @@ export class BudgetExpensesComponent implements OnInit {
 
     this.update_key = item.key;
     this.fields = f;
-    this.doc_path = "expenses";
+    this.doc_path = "budget/expenses";
   }
 
   closeEdit() {

@@ -21,7 +21,7 @@ export class BudgetInnertransferAddComponent {
       {name: 'Source amount', type: 'number'},
       {name: 'Source currency', type: 'text'}
     ]
-    this.doc_path = 'innertransfers';
+    this.doc_path = 'budget/innertransfers';
   }
 
 }

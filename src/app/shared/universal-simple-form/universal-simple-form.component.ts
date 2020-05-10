@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BudgetService } from 'src/app/services/budget.service';
+import { BaseService } from 'src/app/services/base.service';
 
 @Component({
   selector: 'app-universal-simple-form',
@@ -28,7 +29,7 @@ export class UniversalSimpleFormComponent implements OnInit {
   countAdded: number;
   
 
-  constructor(public bs: BudgetService) {
+  constructor(public bs: BaseService) {
     this.newFieldName = new FormControl('', Validators.required);
     this.newFieldType = new FormControl('', Validators.required);
     this.countAdded = 0;
@@ -69,10 +70,10 @@ export class UniversalSimpleFormComponent implements OnInit {
     const data = this.simpleForm.value;
     
     if (this.update_key)  {
-      this.bs.updateExpense(data, this.update_key);
+      this.bs.updateOneDoc(data, this.doc_path + '/' + this.update_key);
     }
     else {
-      this.bs.addExpense(data);
+      this.bs.addOneDoc(data, this.doc_path);
       this.countAdded += 1;
     }
   }

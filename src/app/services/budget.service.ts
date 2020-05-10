@@ -12,19 +12,27 @@ export class BudgetService extends BaseService {
   }
 
   public getExpenses() {
-    return this.getList('expenses');
+    return this.getList('budget/expenses');
   }
 
   public getIncomes() {
-    return this.getList('incomes');
+    return this.getList('budget/incomes');
   }
 
-  public addExpense(data: any){
-    return this.addOneDoc(data, 'expenses');
+  public getInnerTransfers() {
+    return this.getList('budget/innertransfers');
+  }
+
+  public getLoans() {
+    return this.getList('budget/loans');
+  }
+
+  public addExpense(data: any) {
+    return this.addOneDoc(data, 'budget/expenses');
   }
 
   public updateExpense(data: any, update_key: string) {
-    const path = 'expenses/' + update_key
+    const path = 'budget/expenses/' + update_key
     return this.updateOneDoc(data, path);
   }
 }

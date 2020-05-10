@@ -19,7 +19,7 @@ export class BudgetIncomesAddComponent{
       {name: 'Amount', type: 'number'},
       {name: 'Currency', type: 'text'}
     ]
-    this.doc_path = 'incomes';
+    this.doc_path = 'budget/incomes';
   }
 
 }

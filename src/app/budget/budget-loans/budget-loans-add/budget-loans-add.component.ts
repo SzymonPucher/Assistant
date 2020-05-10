@@ -22,7 +22,7 @@ export class BudgetLoansAddComponent {
       {name: 'Due', type: 'date'},
       {name: 'Description', type: 'text'}
     ]
-    this.doc_path = 'loans';
+    this.doc_path = 'budget/loans';
   }
 
 }

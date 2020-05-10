@@ -13,15 +13,18 @@ export class BaseService {
     return this.db.list(path).valueChanges();
   }
 
+  protected getListWithKeys(path: string){
+    return this.db.list(path).snapshotChanges();
+  }
 
-  protected addOneDoc(obj: any, path: string){
+  public addOneDoc(obj: any, path: string){
     Object.keys(obj).forEach(key => {
       obj[key] = Utils.try_to_convert(obj[key])
     });
     return this.db.list(path).push(obj);
   }
 
-  protected updateOneDoc(updatedObj: any, path: string) {
+  public updateOneDoc(updatedObj: any, path: string) {
 
     Object.keys(updatedObj).forEach(key => {
       updatedObj[key] = Utils.try_to_convert(updatedObj[key])

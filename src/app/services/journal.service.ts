@@ -17,7 +17,7 @@ export class JournalService extends BaseService {
   }
 
   public getPomodoros() {
-    return this.getList('events')
+    return this.getList('journal/pomodoro')
   }
 
 

@@ -16,7 +16,7 @@ export class JournalEventComponent{
       {name: 'Start', type: 'date'},
       {name: 'Finish', type: 'date'}
     ];
-    this.doc_path = 'events';    
+    this.doc_path = 'journal/events';    
   }
 
   ngOnInit() {
