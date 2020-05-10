@@ -1,37 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database'
-import { Observable } from 'rxjs';
-import Utils from '../shared/utils';
+import { BaseService } from './base.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BudgetService {
+export class BudgetService extends BaseService {
 
-  expenses: Observable<any[]>;
-
-  constructor(public db: AngularFireDatabase) { 
-  }
-
-  private getList(path: string) {
-    return this.db.list(path).valueChanges();
-  }
-
-
-  private addOneDoc(obj: any, path: string){
-    Object.keys(obj).forEach(key => {
-      obj[key] = Utils.try_to_convert(obj[key])
-    });
-    return this.db.list(path).push(obj);
-  }
-
-  private updateOneDoc(updatedObj: any, path: string) {
-
-    Object.keys(updatedObj).forEach(key => {
-      updatedObj[key] = Utils.try_to_convert(updatedObj[key])
-    });
-
-    return this.db.object(path).update(updatedObj);
+  constructor(public db: AngularFireDatabase) {
+    super(db);
   }
 
   public getExpenses() {
