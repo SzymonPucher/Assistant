@@ -1,0 +1,74 @@
+<div *ngIf="show_list_add" class="container">
+  <form class="product-card container" [formGroup]="searchForm">
+    <mat-form-field color="accent" style="width: 80%;">
+      <mat-label>Search</mat-label>
+      <input matInput type="text" style="color: #dddddd;" formControlName="searchInput" />
+    </mat-form-field>
+    <button mat-icon-button color="accent" (click)="search()" style="margin-top: 1em;">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
+</div>
+
+<div *ngIf="show_list_add" class="container">
+  <mat-spinner *ngIf="spinner"></mat-spinner>
+</div>
+
+<div *ngIf="show_list_add" class="container">
+  <mat-card class="product-card" *ngFor="let item of expenses_list">
+    <mat-card-header>
+      <mat-card-title>{{ item.product }}</mat-card-title>
+      <mat-card-subtitle>{{ item.price }} {{ item.currency }}</mat-card-subtitle>
+      <mat-card-actions>
+        <button mat-icon-button (click)="addToBasket(item)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button (click)="editAndAdd(item)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card-header>
+    <div *ngIf="item.otherProperties" class="propBox">
+      <mat-card class="prop" *ngFor="let property of getItemProperties(item)">
+        <div>{{ property.value }}</div>
+        <hr style="margin: 0.1em 0;">
+        <div style="font-size: 0.7em;">{{ property.key }}</div>
+      </mat-card>
+    </div>
+  </mat-card>
+</div>
+
+<div *ngIf="show_final_form">
+  <div class="container">
+    <div id="basket-summary">
+      <mat-card class="basket-item" *ngFor="let item of basket">
+        <span>{{ item.product }} {{ item.price }}</span>
+        <button mat-icon-button (click)="deleteItemFromBasket(item)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card>
+      <mat-card>
+        Total: {{ getBasketSum() }}
+      </mat-card>
+    </div>
+  </div>
+  <app-universal-simple-form [fields]=basketFormFields [show_add_field_form]=false
+    (submitClicked)="submitBasket($event)"></app-universal-simple-form>
+</div>
+
+<div *ngIf="show_add_form" class="container">
+  <app-universal-simple-form [fields]=addFormFields (submitClicked)="addNewToBasket($event)">
+  </app-universal-simple-form>
+</div>
+
+<button mat-fab class="show_add_list_btn" (click)="showAddList()" color="accent">
+  <mat-icon>list</mat-icon>
+</button>
+
+<button mat-fab class="show_add_form_btn" (click)="showAddForm()" color="accent">
+  <mat-icon>add_circle</mat-icon>
+</button>
+
+<button mat-fab class="show_final_form_btn" (click)="showFinalForm()" color="primary">
+  +{{ basket.length }}
+</button>

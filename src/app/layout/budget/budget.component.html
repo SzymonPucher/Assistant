@@ -1,0 +1,18 @@
+<h1>Expenses: {{ all_expenses }}</h1>
+<h2>Incomes: {{ all_incomes }}</h2>
+<div style="display: flex; justify-content: center;">
+  <div style="display: block; width: 90%;">
+    <canvas
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"
+    >
+    </canvas>
+  </div>
+  <div style="display: block; width: 90%;">
+
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<mat-card class="add-field-form">
+  <form [formGroup]="addFieldForm">
+
+    <mat-form-field color="accent">
+      <mat-label>Field name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field color="accent">
+      <mat-label>Field type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let fieldType of allowedFieldTypes" [value]="fieldType">
+          {{ fieldType }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button type="button" (click)="onSubmit()" [disabled]="addFieldForm.invalid">
+      Add new field
+    </button>
+  </form>
+</mat-card>

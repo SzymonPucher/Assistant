@@ -1,0 +1,28 @@
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Amount</th>
+    <th style="width: 50px;">Action</th>
+  </tr>
+  <tr *ngFor="let item of items">
+    <td>{{item.date}}</td>
+    <td>{{item.source}}</td>
+    <td>{{item.destination}}</td>
+    <td>{{item.amount}} {{item.currency}}</td>
+    <td><i style="font-size: 20px;" (click)="openEdit(item)" class="material-icons">edit</i></td>
+  </tr>
+</table>
+
+<mat-card *ngIf="fields.length > 0" class="edit_popup">
+  <app-universal-simple-form [fields]="fields" (submitClicked)=updateSubmitted($event)>
+  </app-universal-simple-form>
+  <button mat-raised-button color="warn" (dblclick)="delete()" style="width: 40%; margin: 1rem;">
+    Delete
+  </button>
+
+  <button mat-raised-button (click)="closeEdit()" style="width: 40%; margin: 1rem;">
+    Close
+  </button>
+</mat-card>

@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    flex-wrap: wrap;
+}
+
+.form-wrapper {
+    margin: 0.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+}
+
+.add-field-form {
+    background-color: #555555;
+}
+
+.buttons {
+    margin-top: 1rem;
+}
+
+mat-label {
+    text-transform: capitalize;
+}

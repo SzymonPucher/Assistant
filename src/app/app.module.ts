@@ -6,26 +6,6 @@ import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { environment } from "../environments/environment";
 
 import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-
-import { MenuComponent } from "./menu/menu.component";
-
-import { BudgetComponent } from "./budget/budget.component";
-import { BudgetExpensesComponent } from "./budget/budget-expenses/budget-expenses.component";
-import { BudgetExpensesAddComponent } from "./budget/budget-expenses/budget-expenses-add/budget-expenses-add.component";
-import { BudgetIncomesComponent } from "./budget/budget-incomes/budget-incomes.component";
-import { BudgetIncomesAddComponent } from "./budget/budget-incomes/budget-incomes-add/budget-incomes-add.component";
-import { BudgetLoansComponent } from "./budget/budget-loans/budget-loans.component";
-import { BudgetLoansAddComponent } from "./budget/budget-loans/budget-loans-add/budget-loans-add.component";
-import { BudgetInnertransferComponent } from "./budget/budget-innertransfer/budget-innertransfer.component";
-import { BudgetInnertransferAddComponent } from "./budget/budget-innertransfer/budget-innertransfer-add/budget-innertransfer-add.component";
-
-import { JournalComponent } from "./journal/journal.component";
-import { JournalEventComponent } from "./journal/journal-event/journal-event.component";
-import { JournalPomodoroComponent } from "./journal/journal-pomodoro/journal-pomodoro.component";
-
-import { MultivalueListComponent } from "./shared/multivalue-list/multivalue-list.component";
-import { UniversalSimpleFormComponent } from "./shared/universal-simple-form/universal-simple-form.component";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -41,6 +21,24 @@ import { MatDividerModule } from "@angular/material/divider";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartsModule } from "ng2-charts";
 
+import { AppComponent } from "./app.component";
+import { MenuComponent } from './layout/menu/menu.component';
+import { BudgetComponent } from './layout/budget/budget.component';
+import { BudgetExpensesComponent } from './layout/budget/expenses/budget-expenses.component';
+import { BudgetExpensesAddComponent } from './layout/budget/expenses/add/budget-expenses-add.component';
+import { BudgetIncomesComponent } from './layout/budget/incomes/budget-incomes.component';
+import { BudgetIncomesAddComponent } from './layout/budget/incomes/add/budget-incomes-add.component';
+import { BudgetLoansComponent } from './layout/budget/loans/budget-loans.component';
+import { BudgetLoansAddComponent } from './layout/budget/loans/add/budget-loans-add.component';
+import { BudgetInnertransferComponent } from './layout/budget/innertransfer/budget-innertransfer.component';
+import { BudgetInnertransferAddComponent } from './layout/budget/innertransfer/add/budget-innertransfer-add.component';
+import { JournalComponent } from './layout/journal/journal.component';
+import { JournalEventComponent } from './layout/journal/event/journal-event.component';
+import { JournalPomodoroComponent } from './layout/journal/pomodoro/journal-pomodoro.component';
+import { MultivalueListComponent } from './layout/shared/multivalue-list/multivalue-list.component';
+import { UniversalSimpleFormComponent } from './layout/shared/universal-simple-form/universal-simple-form.component';
+import { SettlementComponent } from './layout/budget/expenses/settlement/settlement.component';
+import { AddFieldToFormComponent } from './layout/shared/add-field-to-form/add-field-to-form.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +62,8 @@ import { ChartsModule } from "ng2-charts";
 
     MultivalueListComponent,
     UniversalSimpleFormComponent,
+    SettlementComponent,
+    AddFieldToFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,10 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    flex-wrap: wrap;
+}
+
+#counter {
+    margin: 0.5rem;
+}
