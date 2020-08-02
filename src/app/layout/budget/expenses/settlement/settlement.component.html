@@ -1,0 +1,40 @@
+<div class="container">
+  <app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields [show_add_field_form]=false
+   (submitClicked)="load_products($event)"></app-universal-simple-form>
+
+  <mat-card *ngIf="expenses.length > 0" class="form-wrapper">
+    <mat-card>Total: {{ total() }}</mat-card><br>
+    <mat-card>Half: {{ half() }}</mat-card><br>
+    <mat-card>Product count: {{ expenses.length }}</mat-card>
+  </mat-card>
+</div>
+
+<div class="container">
+  <mat-card class="product-card" *ngFor="let expense of expenses">
+    <mat-card-header>
+      <mat-card-title>{{ expense.product }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ expense.date }} | {{ expense.price }} {{ expense.currency }} | {{ expense.category }} -
+        {{ expense.subcategory }} | {{ expense.vendor }}
+      </mat-card-subtitle>
+      <mat-card-actions>
+        <button mat-icon-button (click)="remove(expense)"><mat-icon>delete</mat-icon></button>
+      </mat-card-actions>
+    </mat-card-header>
+  </mat-card>
+</div>
+<hr>
+<div class="container">
+  <mat-card class="product-card" *ngFor="let expense of outOfScopeExpenses">
+    <mat-card-header>
+      <mat-card-title>Removed: {{ expense.product }}</mat-card-title>
+      <mat-card-subtitle>
+        {{ expense.date }} | {{ expense.price }} {{ expense.currency }} | {{ expense.category }} -
+        {{ expense.subcategory }} | {{ expense.vendor }}
+      </mat-card-subtitle>
+      <mat-card-actions>
+        <button mat-icon-button (click)="restore(expense)"><mat-icon>add</mat-icon></button>
+      </mat-card-actions>
+    </mat-card-header>
+  </mat-card>
+</div>

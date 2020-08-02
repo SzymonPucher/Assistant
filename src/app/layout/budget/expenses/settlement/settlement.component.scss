@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;    
+    flex-wrap: wrap;
+}
+
+.form-wrapper {
+    margin: 0.5rem;
+}
+
+.product-card {
+    margin: 0.5rem;
+    width: 500px;
+    padding-bottom: 0;
+}

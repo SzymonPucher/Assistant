@@ -1,0 +1,26 @@
+<div class="container">
+  <mat-card class="form-wrapper">
+    <form [formGroup]="simpleForm">
+
+      <mat-form-field *ngFor="let fieldName of getFormKeys()" color="accent">
+        <mat-label>{{ getReadibleFieldName(fieldName) }}</mat-label>
+        <textarea matInput *ngIf="isTextArea(fieldName)" type="{{ getFieldType(fieldName) }}" formControlName="{{ fieldName }}"></textarea>
+        <input matInput *ngIf="!isTextArea(fieldName)" type="{{ getFieldType(fieldName) }}" formControlName="{{ fieldName }}"/>
+
+        <button matSuffix mat-icon-button type="button" (click)="deleteFormField(fieldName)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </mat-form-field>
+
+      <app-add-field-to-form *ngIf="show_add_field_form" (submitClicked)=addFormField($event)></app-add-field-to-form>
+
+      <div class="buttons">
+        <button mat-button color="accent" (click)="onSubmit()" [disabled]="simpleForm.invalid">
+          Submit
+        </button>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

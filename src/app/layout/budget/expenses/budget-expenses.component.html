@@ -1,0 +1,50 @@
+<div *ngIf="displayItems.size == 0" style="display: flex; justify-content: center;">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="displayItems.size > 0">
+  <div *ngFor="let k of getMapKeys(displayItems)">
+    <hr />
+    <div style="display: flex; justify-content: center;">
+      <mat-card style="display: inline-block;">
+        {{ k }}
+      </mat-card>
+    </div>
+    <div class="mat-card-container">
+      <mat-card *ngFor="let v of getMapKeys(displayItems.get(k))">
+        <mat-card-header>
+          <mat-card-title>{{ v }}</mat-card-title>
+          <mat-card-subtitle>
+            {{ getSumInMap(k, v) }} <span *ngFor="let pm of getPaymentMethods(k, v)"> | {{ pm }} </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngFor="let item of displayItems.get(k).get(v)" class="grouped-expenses">
+            <mat-card class="single-expense">
+              <div style="margin-right: 1rem;">{{ item.product }}</div>
+              <div>{{ item.price }} {{ item.currency }}</div>
+            </mat-card>
+            <button mat-icon-button (click)="openUpdateForm(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+<mat-card *ngIf="currentlyEditedExpense" class="edit_popup">
+  <app-universal-simple-form [fields]=currentlyEditedExpense.getFieldSpecs() (submitClicked)="onSubmit($event)"></app-universal-simple-form>
+  <button mat-raised-button color="warn" (dblclick)="delete(currentlyEditedExpense)" class="update-form-action">
+    Delete
+  </button>
+  <button mat-raised-button (click)="closeEditForm()" class="update-form-action">
+    Close
+  </button>
+</mat-card>
+
+
+
+
