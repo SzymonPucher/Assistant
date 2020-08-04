@@ -3,7 +3,7 @@ import { FieldType } from 'src/app/models/field-type';
 
 export default class Utils {
 
-  public static try_to_convert(value: string) {
+  public static tryToConvert(value: string): string | number {
     value = value.toString();
 
     // try to convert to number with comma-dot transformation
@@ -59,7 +59,7 @@ export default class Utils {
       return FieldType.date;
     }
     
-    if (obj !== Utils.try_to_convert(obj)){
+    if (obj !== Utils.tryToConvert(obj)){
       return FieldType.number;
     }
     

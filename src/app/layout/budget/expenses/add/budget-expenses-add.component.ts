@@ -96,6 +96,8 @@ export class BudgetExpensesAddComponent {
   }
 
   addNewToBasket(data: any): void {
+    console.log(data);
+    
     this.basket.push(new Expense(data));
   }
 
@@ -109,6 +111,8 @@ export class BudgetExpensesAddComponent {
     this.show_add_form = true;
     this.show_list_add = false;
     this.show_final_form = false;
+    console.log(this.basket);
+    
   }
 
   showFinalForm(): void {    

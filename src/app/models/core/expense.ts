@@ -20,7 +20,7 @@ export class Expense extends DataModelBase {
         this.product = data.product;
         this.subcategory = data.subcategory;
         this.category = data.category;
-        this.price = data.price;
+        this.price = +data.price;
         this.currency = data.currency;
         this.date = data.date;
         this.payment_method = data.payment_method;

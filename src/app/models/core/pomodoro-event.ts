@@ -3,14 +3,14 @@ import Utils from 'src/app/layout/shared/utils';
 
 export class PomodoroEvent extends DataModelBase {
     
-    catergory: string;
+    category: string;
     name: string;
     start: string;
     duration: number;
 
     constructor (data: any, key: string = null){
         super(data, key);
-        this.catergory = data.category;
+        this.category = data.category;
         this.name = data.name;
         this.start = data.start;
         this.duration = data.duration;

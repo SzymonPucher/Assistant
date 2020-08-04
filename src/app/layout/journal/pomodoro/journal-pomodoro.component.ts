@@ -61,7 +61,7 @@ export class JournalPomodoroComponent implements OnInit {
 
     const category = data.category;
     const name = data.name;
-    const start = new Date();
+    const start = Utils.getIsoDateString(new Date());
     const duration = data.minutes;
 
     let num = duration * 60;
@@ -75,7 +75,7 @@ export class JournalPomodoroComponent implements OnInit {
         if (num == 0) {
 
           this.journalApiService.addPomodoroEvent(
-            new PomodoroEvent({category, name, start, duration})
+            new PomodoroEvent({category, name, start, duration}).toDto()
           );
 
           this.isCounterRunning = false;

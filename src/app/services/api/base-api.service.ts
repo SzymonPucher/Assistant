@@ -20,7 +20,7 @@ export class BaseApiService {
   public addOneDoc(obj: any, path: string){
     let newData = {};
     Object.keys(obj).forEach(key => {
-      newData[key.toLowerCase()] = Utils.try_to_convert(obj[key])
+      newData[key.toLowerCase()] = Utils.tryToConvert(obj[key])
     });
     return this.db.list(path).push(newData);
   }
@@ -28,7 +28,7 @@ export class BaseApiService {
   public updateOneDoc(updatedObj: any, path: string) {
     let newData = {};
     Object.keys(updatedObj).forEach(key => {
-      newData[key.toLowerCase()] = Utils.try_to_convert(updatedObj[key])
+      newData[key.toLowerCase()] = Utils.tryToConvert(updatedObj[key])
     });
     return this.db.object(path).update(newData);
   }

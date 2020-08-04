@@ -1,5 +1,5 @@
 <div class="container">
-  <app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields [show_add_field_form]=false
+  <app-universal-simple-form [fields]=fields [show_add_field_form]=false
    (submitClicked)="load_products($event)"></app-universal-simple-form>
 
   <mat-card *ngIf="expenses.length > 0" class="form-wrapper">

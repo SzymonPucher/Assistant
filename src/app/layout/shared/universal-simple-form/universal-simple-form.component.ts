@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FieldSpec } from 'src/app/models/field-spec';
+import { FieldType } from 'src/app/models/field-type';
 
 @Component({
   selector: 'app-universal-simple-form',
@@ -30,20 +31,20 @@ export class UniversalSimpleFormComponent implements OnInit {
     this.show_add_field_form = this.show_add_field_form === undefined ? true : false;
   }
 
-   ngOnInit(){
-    this.fields.forEach(field=> this.addFormField(field));    
+  ngOnInit(){
+    this.fields.forEach(field=> this.addFormField(field));
   }
 
   getFormKeys(): Array<string> {    
     return Object.keys(this.simpleForm.value);
   }
 
-  getFieldType(key: string): string {
-    return this.fieldTypeMap.get(key);
+  getFieldType(fieldName: string): string {
+    return this.fieldTypeMap.get(fieldName);
   }
 
   isTextArea(fieldName: string): boolean {
-    return this.getFieldType(fieldName) === 'textarea';
+    return this.getFieldType(fieldName) === FieldType.textarea;
   }
 
   getReadibleFieldName(fieldName: string): string {
@@ -57,11 +58,14 @@ export class UniversalSimpleFormComponent implements OnInit {
 
   deleteFormField(fieldName: string): void {
     this.fieldTypeMap.delete(fieldName);
-    this.simpleForm.removeControl(fieldName);    
+    this.simpleForm.removeControl(fieldName); 
   }
 
-  onSubmit(): void {    
-    this.submitClicked.emit(this.simpleForm.value);
-    this.fields.forEach(field=> this.addFormField(field));
-    }
+  onSubmit(): void {
+    const obj = {};
+    this.getFormKeys().forEach(key => {
+      obj[key] = this.simpleForm.value[key];
+    });
+    this.submitClicked.emit(obj);
+  }
 }

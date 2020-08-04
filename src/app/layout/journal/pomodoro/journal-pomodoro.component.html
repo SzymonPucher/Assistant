@@ -1,4 +1,4 @@
-<app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields (submitClicked)="run_counter($event)"></app-universal-simple-form>
+<app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields [show_add_field_form]=false (submitClicked)="run_counter($event)"></app-universal-simple-form>
 
 <div *ngIf="isCounterRunning" class="container">
   <mat-card id="counter">
