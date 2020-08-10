@@ -6,7 +6,6 @@ import { Expense } from 'src/app/models/core/expense';
 import Utils from 'src/app/layout/shared/utils';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-budget-expenses-add',
@@ -72,7 +71,7 @@ export class BudgetExpensesAddComponent {
     this.sub = this.expenses$.subscribe((expenses: Array<Expense>) => {      
         this.expenses_list = this.makeExpensesUnique(
           expenses.filter((e: Expense) => 
-            Utils.strInStr(this.searchForm.value.searchInput, e.getHash())));
+            Utils.strInStr(this.searchForm.value.searchInput, e.getHash(true))));
         this.spinner = false;
       });
   }
@@ -95,9 +94,7 @@ export class BudgetExpensesAddComponent {
     this.basket.push(expense);
   }
 
-  addNewToBasket(data: any): void {
-    console.log(data);
-    
+  addNewToBasket(data: any): void {    
     this.basket.push(new Expense(data));
   }
 
@@ -110,9 +107,7 @@ export class BudgetExpensesAddComponent {
   showAddForm(): void {
     this.show_add_form = true;
     this.show_list_add = false;
-    this.show_final_form = false;
-    console.log(this.basket);
-    
+    this.show_final_form = false;    
   }
 
   showFinalForm(): void {    

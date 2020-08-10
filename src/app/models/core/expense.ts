@@ -33,7 +33,10 @@ export class Expense extends DataModelBase {
         );
     }
 
-    public getHash() {
+    public getHash(full=false) {
+        if (full){
+            return JSON.stringify(this);
+        }
         let newObj = {
             category: this.category,
             subcategory: this.subcategory,
