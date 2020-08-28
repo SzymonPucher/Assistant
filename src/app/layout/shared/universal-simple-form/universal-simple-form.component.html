@@ -4,8 +4,8 @@
 
       <mat-form-field *ngFor="let fieldName of getFormKeys()" color="accent">
         <mat-label>{{ getReadibleFieldName(fieldName) }}</mat-label>
-        <textarea matInput *ngIf="isTextArea(fieldName)" type="{{ getFieldType(fieldName) }}" formControlName="{{ fieldName }}"></textarea>
-        <input matInput *ngIf="!isTextArea(fieldName)" type="{{ getFieldType(fieldName) }}" formControlName="{{ fieldName }}"/>
+        <textarea matInput *ngIf="isTextArea(fieldName)" type="{{ getFieldType(fieldName) }}" (input)="updateField()" formControlName="{{ fieldName }}"></textarea>
+        <input matInput *ngIf="!isTextArea(fieldName)" type="{{ getFieldType(fieldName) }}" (input)="updateField()" formControlName="{{ fieldName }}"/>
 
         <button matSuffix mat-icon-button type="button" (click)="deleteFormField(fieldName)">
           <mat-icon>delete</mat-icon>

@@ -35,7 +35,7 @@ export class UniversalSimpleFormComponent implements OnInit {
     this.fields.forEach(field=> this.addFormField(field));
   }
 
-  getFormKeys(): Array<string> {    
+  getFormKeys(): Array<string> {
     return Object.keys(this.simpleForm.value);
   }
 
@@ -49,6 +49,12 @@ export class UniversalSimpleFormComponent implements OnInit {
 
   getReadibleFieldName(fieldName: string): string {
     return fieldName.replace('_', ' ')
+  }
+
+  updateField() {
+    for (let i = 0; i < this.fields.length; i++) {
+      this.fields[i].value = this.simpleForm.value[this.fields[i].name];
+    }
   }
 
   addFormField(data: FieldSpec): void {
