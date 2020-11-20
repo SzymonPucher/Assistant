@@ -7,7 +7,6 @@ import { JournalApiService } from 'src/app/services/api/journal-api.service';
 import { PomodoroEvent } from 'src/app/models/core/pomodoro-event';
 import { FieldSpec } from 'src/app/models/field-spec';
 import { FieldType } from 'src/app/models/field-type';
-import { element } from 'protractor';
 import Utils from '../../shared/utils';
 
 @Component({
@@ -42,18 +41,24 @@ export class JournalPomodoroComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.journalApiService.getPomodoros().subscribe(pomodoro => {
-      console.log(pomodoro);
-      
-      this.pomodoros = this.unique(pomodoro.map(p => new PomodoroEvent(p)))
-      console.log(this.pomodoros);
-      
+    this.journalApiService.getPomodoros().subscribe(pomodoro => {    
+      this.pomodoros = this.unique(pomodoro.map(p => new PomodoroEvent(p)))      
     });
   }
 
   public unique(poms: Array<PomodoroEvent>) {
     poms = poms.filter((obj, pos, arr) => pos === arr.findIndex(o => (o.getHash() === obj.getHash())));
     return Utils.sortByProperty(poms, 'name');
+  }
+
+  add_pomodoro(pomodoroEvent: PomodoroEvent) {
+    const category = pomodoroEvent.category;
+    const name = pomodoroEvent.name;
+    const duration = pomodoroEvent.duration;
+    
+    this.journalApiService.addPomodoroEvent(
+      new PomodoroEvent({category, name, start: Utils.getIsoDateString(new Date()), duration}).toDto()
+    );
   }
 
   run_counter(data: any): void {
@@ -70,8 +75,6 @@ export class JournalPomodoroComponent implements OnInit {
       take(num),
       map(() => {
         --num;
-        console.log(num);
-        
         if (num == 0) {
 
           this.journalApiService.addPomodoroEvent(

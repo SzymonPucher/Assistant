@@ -1,3 +1,5 @@
+<mat-card *ngFor="let p of pomodoros">{{ p.category }} {{ p.name }} {{ p.duration }} <button mat-icon-button (click)="add_pomodoro(p)"><mat-icon>check_circle</mat-icon></button></mat-card>
+
 <app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields [show_add_field_form]=false (submitClicked)="run_counter($event)"></app-universal-simple-form>
 
 <div *ngIf="isCounterRunning" class="container">
