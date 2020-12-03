@@ -1,9 +1,21 @@
-<mat-card *ngFor="let p of pomodoros">{{ p.category }} {{ p.name }} {{ p.duration }} <button mat-icon-button (click)="add_pomodoro(p)"><mat-icon>check_circle</mat-icon></button></mat-card>
+<div id="quick-add-pomodoro">
+  <mat-card class="pomodoro" *ngFor="let p of pomodoros">
+    <mat-card-header>
+      <mat-card-title>{{ p.name }}
+        <button mat-icon-button (click)="add_pomodoro(p)">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-subtitle>{{ p.duration }} min | {{ p.category }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
 
-<app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields [show_add_field_form]=false (submitClicked)="run_counter($event)"></app-universal-simple-form>
+<app-universal-simple-form *ngIf="!isCounterRunning" [fields]=fields [show_add_field_form]=false
+  (submitClicked)="run_counter($event)"></app-universal-simple-form>
 
 <div *ngIf="isCounterRunning" class="container">
   <mat-card id="counter">
-    <h2 >{{counter$ | async}}</h2>
+    <h2>{{counter$ | async}}</h2>
   </mat-card>
 </div>
