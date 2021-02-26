@@ -17,6 +17,9 @@
           <mat-card-subtitle>
             {{ getSumInMap(k, v) }} <span *ngFor="let pm of getPaymentMethods(k, v)"> | {{ pm }} </span>
           </mat-card-subtitle>
+          <button mat-icon-button (click)="updateRecipe(displayItems.get(k).get(v))">
+            <mat-icon>edit</mat-icon>
+          </button>
         </mat-card-header>
         <mat-card-content>
           <div *ngFor="let item of displayItems.get(k).get(v)" class="grouped-expenses">
@@ -36,7 +39,8 @@
 
 
 <mat-card *ngIf="currentlyEditedExpense" class="edit_popup">
-  <app-universal-simple-form [fields]=currentlyEditedExpense.getFieldSpecs() (submitClicked)="onSubmit($event)"></app-universal-simple-form>
+  <app-universal-simple-form [fields]=currentlyEditedExpense.getFieldSpecs() (submitClicked)="onSubmit($event)">
+  </app-universal-simple-form>
   <button mat-raised-button color="warn" (dblclick)="delete(currentlyEditedExpense)" class="update-form-action">
     Delete
   </button>
@@ -45,6 +49,26 @@
   </button>
 </mat-card>
 
+<mat-card *ngIf="bulkEditExpenses.length > 0" class="edit_popup">
+  <form [formGroup]="bulkEditForm">
+    <mat-form-field color="accent">
+      <mat-label>Attributes</mat-label>
+      <mat-select formControlName=attribute>
+        <mat-option *ngFor="let attr of attributes" [value]="attr">
+          {{attr}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field  color="accent">
+      <input matInput formControlName=value type="text">
+    </mat-form-field>
+    <button mat-raised-button (click)="bulkUpdateSubmit()" class="update-form-action">
+      Submit
+    </button>
 
+  </form>
 
-
+  <button mat-raised-button (click)="closeEditForm()" class="update-form-action">
+    Close
+  </button>
+</mat-card>

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import Utils from '../../shared/utils';
 import { BudgetApiService } from 'src/app/services/api/budget-api.service';
 import { Expense } from 'src/app/models/core/expense';
+import { FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: "app-budget-expenses",
@@ -13,10 +14,21 @@ export class BudgetExpensesComponent implements OnInit {
   displayItems: Map<string, Map<string, Expense[]>>;
 
   currentlyEditedExpense: Expense;
+  
+  bulkEditExpenses: Expense[];
+
+  attributes: Set<string>;
+
+  bulkEditForm: FormGroup;
 
   constructor(private budgetService: BudgetApiService) {
     this.displayItems = new Map<string, Map<string, Expense[]>>();
     this.currentlyEditedExpense = undefined;
+    this.bulkEditExpenses = [];
+    this.bulkEditForm = new FormGroup({
+      attribute: new FormControl(''),
+      value: new FormControl('')
+    })
   }
 
   ngOnInit() {
@@ -56,6 +68,7 @@ export class BudgetExpensesComponent implements OnInit {
 
   closeEditForm() {
     this.currentlyEditedExpense = undefined;
+    this.bulkEditExpenses = [];
   }
 
   onSubmit(data: any) {
@@ -92,5 +105,24 @@ export class BudgetExpensesComponent implements OnInit {
       }
     });
     return paymentMethods;
+  }
+
+  public updateRecipe(expenses: Expense[]) {
+    this.bulkEditExpenses = expenses;
+    this.attributes = new Set(expenses[0].getFieldSpecs().map(x => x.name));
+    expenses.forEach(element => {
+      this.attributes = new Set([...this.attributes].filter(i => new Set(element.getFieldSpecs().map(x => x.name)).has(i)));
+    });
+  }
+
+  public bulkUpdateSubmit() {
+    let attr = this.bulkEditForm.controls.attribute.value;
+    let value = this.bulkEditForm.controls.value.value;
+    this.bulkEditExpenses.forEach(element => {      
+      element[attr] = value;      
+      this.budgetService.updateExpense(element.toDto(),  element.getKey());  
+    });
+    this.bulkEditExpenses = [];
+
   }
 }
