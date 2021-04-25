@@ -22,7 +22,7 @@ export class UniversalSimpleFormComponent implements OnInit {
   simpleForm: FormGroup;
   fieldTypeMap: Map<string, string>;
   
-  countAdded: number;
+  countAdded: number; 
 
   constructor() {
     this.countAdded = 0;

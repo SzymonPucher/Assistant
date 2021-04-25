@@ -31,8 +31,8 @@
     <div *ngIf="item.otherProperties" class="propBox">
       <mat-card class="prop" *ngFor="let property of getItemProperties(item)">
         <div>{{ property.value }}</div>
-        <hr style="margin: 0.1em 0;">
-        <div style="font-size: 0.7em;">{{ property.key }}</div>
+        <hr>
+        <div class="property_key">{{ property.key }}</div>
       </mat-card>
     </div>
   </mat-card>

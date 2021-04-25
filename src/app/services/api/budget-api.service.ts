@@ -20,11 +20,27 @@ export class BudgetApiService extends BaseApiService {
 
   // get
 
+  public getExpensesStub() {
+    let l = [];
+    let e1 = new Expense({
+      product: 'Kurczak', subcategory: 'sub1', category: 'cat1', price: 12,
+      currency: 'PLN', date: '2021-04-01', payment_method: 'Czerwona', vendor: 'Biedra', vendor_type: 'Sklep spożywczy', location: 'Wrocław'
+    }, 'k1');
+    l.push(e1);
+    return l;
+  }
+
   public getExpenses() {
+    if (true) {
+      this.getExpensesStub();
+    }
     return this.getList('budget/expenses').pipe(map(data => data.map(item => new Expense(item))));
   }
 
   public getExpensesWithKeys() {
+    if (true) {
+      this.getExpensesStub();
+    }
     return this.getListWithKeys('budget/expenses').pipe(map(data => data.map(item => new Expense(item.payload.val(), item.payload.key))));;
   }
 
