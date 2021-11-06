@@ -1,18 +1,42 @@
-<h1>Expenses: {{ all_expenses }}</h1>
-<h2>Incomes: {{ all_incomes }}</h2>
+<!-- Filters -->
+<mat-card id="filterContainer">
+  <form>
+    <mat-form-field color="accent">
+      <mat-label>Start date</mat-label>
+      <input matInput type="date" />
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+      <mat-label>End date</mat-label>
+      <input matInput type="date" />
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+      <mat-label>Free-text filter</mat-label>
+      <input matInput type="text" />
+    </mat-form-field>
+  </form>
+</mat-card>
+
+<!-- Summary cards -->
+
+<mat-card class="summaryCard">
+  <mat-card-subtitle>Expenses</mat-card-subtitle>
+  <mat-card-title>{{ all_expenses }} zl</mat-card-title>
+</mat-card>
+
+<mat-card class="summaryCard">
+  <mat-card-subtitle>Incomes</mat-card-subtitle>
+  <mat-card-title>{{ all_incomes }} zl</mat-card-title>
+</mat-card>
+
+<!-- Charts -->
+
 <div style="display: flex; justify-content: center;">
   <div style="display: block; width: 90%;">
-    <canvas
-      baseChart
-      [datasets]="barChartData"
-      [labels]="barChartLabels"
-      [options]="barChartOptions"
-      [legend]="barChartLegend"
-      [chartType]="barChartType"
-    >
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [legend]="barChartLegend" [chartType]="barChartType">
     </canvas>
   </div>
-  <div style="display: block; width: 90%;">
-
-  </div>
+  <!-- <div style="display: block; width: 90%;"></div> -->
 </div>

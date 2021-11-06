@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
 import { BudgetApiService } from 'src/app/services/api/budget-api.service';
 import { Expense } from 'src/app/models/core/expense';
 import { Income } from 'src/app/models/core/income';
@@ -18,7 +17,7 @@ export class BudgetComponent implements OnInit {
     responsive: true,
   };
   public barChartLabels = [];
-  public barChartType = "bar";
+  public barChartType = "line";
   public barChartLegend = true;
   public barChartData = [
     { data: [], label: "expenses" },
