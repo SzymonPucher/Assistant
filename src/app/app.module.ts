@@ -39,13 +39,13 @@ import { MultivalueListComponent } from './layout/shared/multivalue-list/multiva
 import { UniversalSimpleFormComponent } from './layout/shared/universal-simple-form/universal-simple-form.component';
 import { SettlementComponent } from './layout/budget/expenses/settlement/settlement.component';
 import { AddFieldToFormComponent } from './layout/shared/add-field-to-form/add-field-to-form.component';
+import { BudgetExpensesBankStatementHistoryComponent } from './layout/budget/expenses/bank-statement-history/budget-expenses-bank-statement-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-
     MenuComponent,
-
+    
     BudgetComponent,
     BudgetExpensesComponent,
     BudgetExpensesAddComponent,
@@ -55,6 +55,7 @@ import { AddFieldToFormComponent } from './layout/shared/add-field-to-form/add-f
     BudgetLoansAddComponent,
     BudgetInnertransferComponent,
     BudgetInnertransferAddComponent,
+    BudgetExpensesBankStatementHistoryComponent,
 
     JournalComponent,
     JournalEventComponent,

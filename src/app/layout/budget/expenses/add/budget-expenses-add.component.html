@@ -39,21 +39,22 @@
 </div>
 
 <div *ngIf="show_final_form">
+  <app-universal-simple-form [fields]=basketFormFields [show_add_field_form]=false
+    (submitClicked)="submitBasket($event)">
+  </app-universal-simple-form>
   <div class="container">
     <div id="basket-summary">
+      <mat-card>
+        Total: {{ getBasketSum() }}
+      </mat-card>
       <mat-card class="basket-item" *ngFor="let item of basket">
         <span>{{ item.product }} {{ item.price }}</span>
         <button mat-icon-button (click)="deleteItemFromBasket(item)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card>
-      <mat-card>
-        Total: {{ getBasketSum() }}
-      </mat-card>
     </div>
   </div>
-  <app-universal-simple-form [fields]=basketFormFields [show_add_field_form]=false
-    (submitClicked)="submitBasket($event)"></app-universal-simple-form>
 </div>
 
 <div *ngIf="show_add_form" class="container">
