@@ -48,3 +48,4 @@ Thumbs.db
 .firebase/hosting.ZGlzdFxhc3Npc3RhbnQ.cache
 src/environments/environment.prod.ts
 src/environments/environment.ts
+firebase-debug.log

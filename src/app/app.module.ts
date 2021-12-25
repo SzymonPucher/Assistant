@@ -40,6 +40,8 @@ import { UniversalSimpleFormComponent } from './layout/shared/universal-simple-f
 import { SettlementComponent } from './layout/budget/expenses/settlement/settlement.component';
 import { AddFieldToFormComponent } from './layout/shared/add-field-to-form/add-field-to-form.component';
 import { BudgetExpensesBankStatementHistoryComponent } from './layout/budget/expenses/bank-statement-history/budget-expenses-bank-statement-history.component';
+import { VendorTypeComponent } from './layout/budget/mgmt/vendor-type/vendor-type.component';
+import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { BudgetExpensesBankStatementHistoryComponent } from './layout/budget/exp
     MultivalueListComponent,
     UniversalSimpleFormComponent,
     SettlementComponent,
-    AddFieldToFormComponent
+    AddFieldToFormComponent,
+    VendorTypeComponent,
+    VendorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import Utils from '../../layout/shared/utils';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseApiService {
 
-  constructor(public db: AngularFireDatabase) { }
+  constructor(public db: AngularFireDatabase, public authService: AuthService) { }
 
-  protected getList(path: string) {
-    return this.db.list(path).valueChanges();
+  protected getList(subpath: string) {
+    return this.db.list(subpath).valueChanges();
+  }
+
+  protected getListNew(subpath: string) {
+    var fullPath = `assistant/users/${this.authService.getCurrentUser()}/data/${subpath}`
+    return this.db.list(fullPath).valueChanges();
   }
 
   protected getListWithKeys(path: string){

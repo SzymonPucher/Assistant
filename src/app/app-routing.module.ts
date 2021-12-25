@@ -13,7 +13,8 @@ import { BudgetInnertransferAddComponent } from './layout/budget/innertransfer/a
 import { JournalComponent } from './layout/journal/journal.component';
 import { JournalEventComponent } from './layout/journal/event/journal-event.component';
 import { JournalPomodoroComponent } from './layout/journal/pomodoro/journal-pomodoro.component';
-
+import { VendorTypeComponent } from './layout/budget/mgmt/vendor-type/vendor-type.component';
+import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
 
 const routes: Routes = [
   { path: 'budget', component: BudgetComponent },
@@ -26,6 +27,9 @@ const routes: Routes = [
   { path: 'budget/loans/add', component: BudgetLoansAddComponent },
   { path: 'budget/innertransfers', component: BudgetInnertransferComponent },
   { path: 'budget/innertransfers/add', component: BudgetInnertransferAddComponent },
+  { path: 'budget/mgmt/vendors', component: VendorComponent },
+  { path: 'budget/mgmt/vendors/types', component: VendorTypeComponent },
+
   { path: 'journal', component: JournalComponent },
   { path: 'journal/event', component: JournalEventComponent },
   { path: 'journal/pomodoro', component: JournalPomodoroComponent }

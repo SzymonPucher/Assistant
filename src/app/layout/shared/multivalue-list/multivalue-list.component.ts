@@ -1,37 +1,26 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireList } from '@angular/fire/database'
-
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-multivalue-list',
   templateUrl: './multivalue-list.component.html',
   styleUrls: ['./multivalue-list.component.scss']
 })
-export class MultivalueListComponent implements OnInit {
+export class MultivalueListComponent {
 
   @Input()
-  elements: any;
+  items: any[];
 
-  @Input()
-  itemsRef: AngularFireList<any>;
+  @Output()
+  editClicked: EventEmitter<any> = new EventEmitter<any>();
 
-  values: Array<any>;
+  @Output()
+  deleteClicked: EventEmitter<any> = new EventEmitter<any>();
 
-
-  constructor() { 
-    this.values = [];
+  edit(item: any): void {
+    this.editClicked.emit(item);
   }
 
-  ngOnInit() {
-    Object.keys(this.elements).forEach(elem => {
-      if(['Product', 'Price', 'Date'].includes(elem)) {
-        let val = this.elements[elem] ? this.elements[elem] : 'NULL';
-        this.values.push({label: elem, value: val});
-      }
-    });    
-  }
-
-  delete() {
-    this.itemsRef.remove(this.elements.key);
+  delete(item: any): void {
+    this.deleteClicked.emit(item);
   }
 }

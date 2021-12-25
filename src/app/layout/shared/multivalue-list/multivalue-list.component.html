@@ -1,11 +1,11 @@
-<div class="mv_box">
-  <div class="list_element" *ngFor="let e of values">
-    <div class="multivalue-list_value">{{e.value}}</div>
-    <div class="line"></div>
-    <div class="multivalue-list_label">{{e.label}}</div>
-  </div>
-  <div class="list_element">
-    <i style="font-size: 25px;" class="material-icons">edit</i>
-    <i style="font-size: 25px;" (click)="delete()" class="material-icons">delete</i>
-  </div>
+<div class="container">
+  <mat-card *ngFor="let item of items">
+    <span>
+      {{ item.getDisplayValue() }}
+    </span>
+    <span>
+      <mat-icon (click)="edit(item)">edit</mat-icon>
+      <mat-icon (click)="delete(item)">delete</mat-icon>
+    </span>
+  </mat-card>
 </div>

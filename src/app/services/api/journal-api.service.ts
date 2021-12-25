@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { PomodoroEvent } from '../../models/core/pomodoro-event';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JournalApiService extends BaseApiService {
 
-  constructor(public db: AngularFireDatabase) {
-    super(db);
+  constructor(public db: AngularFireDatabase, public auth: AuthService) {
+    super(db, auth);
   }
 
   public addPomodoroEvent(pomodoroEvent: PomodoroEvent) {

@@ -9,19 +9,28 @@ import { InnerTransfer } from 'src/app/models/core/innertransfer';
 import { Loan } from 'src/app/models/core/loan';
 import { of } from 'rxjs';
 import { environment } from "../../../environments/environment";
-import { expensesListStub, incomesListStub, innerTransfersListStub, loansListStub } from "src/app/services/api/stubs/budget.stubs"
+import { expensesListStub, incomesListStub, innerTransfersListStub, loansListStub, vendorsStub } from "src/app/services/api/stubs/budget.stubs"
+import { AuthService } from './auth.service';
+import { Vendor } from 'src/app/models/budget/vendor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BudgetApiService extends BaseApiService {
 
-  constructor(public db: AngularFireDatabase) {
-    super(db);
-    let prefix = 'assistant/users/simon/data/budget';
+  constructor(public db: AngularFireDatabase, public auth: AuthService) {
+    super(db, auth);
+    let prefix = 'budget/';
   }
 
   // get
+
+  public getVendors() {
+    if (!environment.production) {
+      return of(vendorsStub);
+    }
+    return this.getListNew('budget/vendors').pipe(map(data => data.map(item => new Vendor(item))));
+  }
 
   public getExpenses() {
     if (!environment.production) {
