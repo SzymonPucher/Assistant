@@ -16,6 +16,9 @@ export class UniversalSimpleFormComponent implements OnInit {
   @Input('show_add_field_form')
   show_add_field_form: boolean;
 
+  @Input('is_hiddable')
+  is_hiddable: boolean;
+
   @Output()
   submitClicked: EventEmitter<any> = new EventEmitter<any>();
   
@@ -23,16 +26,18 @@ export class UniversalSimpleFormComponent implements OnInit {
   fieldTypeMap: Map<string, string>;
   
   countAdded: number; 
+  is_hidden: boolean;
 
   constructor() {
     this.countAdded = 0;
     this.fieldTypeMap = new Map();
-    this.simpleForm = new FormGroup({});
-    this.show_add_field_form = this.show_add_field_form === undefined ? true : false;
+    this.simpleForm = new FormGroup({});  
   }
 
   ngOnInit(){
     this.fields.forEach(field=> this.addFormField(field));
+    this.is_hidden = this.is_hiddable;
+    this.show_add_field_form = this.show_add_field_form === undefined ? true : false;
   }
 
   getFormKeys(): Array<string> {
@@ -73,5 +78,9 @@ export class UniversalSimpleFormComponent implements OnInit {
       obj[key] = this.simpleForm.value[key];
     });
     this.submitClicked.emit(obj);
+  }
+
+  toggle() {
+    this.is_hidden = !this.is_hidden;
   }
 }

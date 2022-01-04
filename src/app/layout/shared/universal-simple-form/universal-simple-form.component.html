@@ -1,4 +1,8 @@
-<div class="container">
+<div class="container" *ngIf="is_hiddable">
+  <button mat-raised-button color="primary" (click)="toggle()" *ngIf="is_hidden">Create new</button>
+  <button mat-raised-button color="primary" (click)="toggle()" *ngIf="!is_hidden">Hide</button>
+</div>
+<div class="container" *ngIf="!is_hidden">
   <mat-card class="form-wrapper">
     <form [formGroup]="simpleForm">
 

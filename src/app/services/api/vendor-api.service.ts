@@ -55,7 +55,7 @@ export class VendorApiService extends BaseDataApiService {
 
     public addVendorType(data: any) {
         if (!environment.production) {
-            //return null;
+            return null;
         }
         this.addOneDoc(data, this.vendorTypesSubPath);
     }

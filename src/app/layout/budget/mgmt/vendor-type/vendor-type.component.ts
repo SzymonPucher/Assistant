@@ -27,10 +27,8 @@ export class VendorTypeComponent implements OnInit {
   }
 
   public onSubmitForm(data: any): void {
-    var vendorType = new VendorType(data);
-    console.log(vendorType);
-    
-    this.vendorApiService.addVendorType(vendorType);
+    var vendorType = new VendorType(data);    
+    // this.vendorApiService.addVendorType(vendorType);
   }
 
   public editVendorType(data: VendorType): void {

@@ -1,11 +1,12 @@
+<app-universal-simple-form 
+    [fields]=formFields 
+    (submitClicked)="onSubmitForm($event)" 
+    [show_add_field_form]=false
+    [is_hiddable]=true
+></app-universal-simple-form>
+
 <app-multivalue-list 
     [items]="vendorTypes" 
     (editClicked)="editVendorType($event)"
     (deleteClicked)="deleteVendorType($event)"
 ></app-multivalue-list>
-
-<app-universal-simple-form 
-    [fields]=formFields 
-    (submitClicked)="onSubmitForm($event)" 
-    [show_add_field_form]=false
-></app-universal-simple-form>
