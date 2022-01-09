@@ -55,14 +55,14 @@ export class VendorApiService extends BaseDataApiService {
 
     public addVendorType(data: any) {
         if (!environment.production) {
-            return null;
+            // return null;
         }
         this.addOneDoc(data, this.vendorTypesSubPath);
     }
 
     //update
 
-    public updateVendor(data: any, update_key: string) {
+    public updateVendor(data: any, update_key: number) {
         if (!environment.production) {
             return null;
         }
@@ -70,7 +70,7 @@ export class VendorApiService extends BaseDataApiService {
         return this.updateOneDoc(data, path);
     }
 
-    public updateVendorType(data: any, update_key: string) {
+    public updateVendorType(data: any, update_key: number) {
         if (!environment.production) {
             return null;
         }
@@ -80,14 +80,14 @@ export class VendorApiService extends BaseDataApiService {
 
     // remove
 
-    public removeVendor(key: string) {
+    public removeVendor(key: number) {
         if (!environment.production) {
             return null;
         }
         return this.removeOneDoc(this.vendorsSubPath + '/' + key);
     }
 
-    public removeVendorType(key: string) {
+    public removeVendorType(key: number) {
         if (!environment.production) {
             return null;
         }

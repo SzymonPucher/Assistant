@@ -1,7 +1,7 @@
 export class VendorType {
     
     
-    public id: string;
+    public id: number;
     public name: string;
 
     constructor(data: any) {

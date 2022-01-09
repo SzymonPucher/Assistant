@@ -24,7 +24,7 @@ export class BaseDataApiService {
     let newData = {};
     
     Object.keys(obj).forEach(key => {
-      newData[key.toLowerCase()] = Utils.tryToConvert(obj[key])
+      newData[key] = Utils.tryToConvert(obj[key])
     });
 
     var fullPath = this.getFullPath(subpath);
@@ -34,7 +34,7 @@ export class BaseDataApiService {
 
     dData[obj.id] = obj.name;
     
-    return this.db.object(fullPath).set(dData);
+    return this.db.object(fullPath).update(dData);
   
   }
 

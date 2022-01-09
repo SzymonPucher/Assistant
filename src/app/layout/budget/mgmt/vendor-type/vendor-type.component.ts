@@ -27,8 +27,9 @@ export class VendorTypeComponent implements OnInit {
   }
 
   public onSubmitForm(data: any): void {
-    var vendorType = new VendorType(data);    
-    // this.vendorApiService.addVendorType(vendorType);
+    data.id = this.getLowestId();
+    var vendorType = new VendorType(data);
+    this.vendorApiService.addVendorType(vendorType);
   }
 
   public editVendorType(data: VendorType): void {
@@ -40,5 +41,13 @@ export class VendorTypeComponent implements OnInit {
 
   public deleteVendorType(data: VendorType): void {
     this.vendorApiService.removeVendorType(data.id);
+  }
+
+  public getLowestId() {
+    let id = 1;
+    while(this.vendorTypes.map(x => x.id).includes(id)) {
+      id++;
+    }
+    return id;
   }
 }
