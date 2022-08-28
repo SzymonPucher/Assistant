@@ -1,1 +1,28 @@
 <p>budget-expenses-bank-statement-history works!</p>
+
+<div class="Block">
+    <label id="lbl">Code </label>
+    <input type='file' (change)="fileChanged($event)">
+</div>
+
+<form [formGroup]="simpleForm">
+
+    <mat-form-field *ngFor="let value of single_row" color="accent">
+      <mat-label>value</mat-label>
+      <input matInput type="text"/>
+
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-button color="accent" (click)="submit_column_label_choice()">
+        Submit
+      </button>
+    </div>
+
+  </form>
+
+<table>
+    <tr *ngFor="let row of statement_array">
+        <td *ngFor="let value of row">{{ value }}</td>
+    </tr>
+</table>

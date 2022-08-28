@@ -42,6 +42,8 @@ import { AddFieldToFormComponent } from './layout/shared/add-field-to-form/add-f
 import { BudgetExpensesBankStatementHistoryComponent } from './layout/budget/expenses/bank-statement-history/budget-expenses-bank-statement-history.component';
 import { VendorTypeComponent } from './layout/budget/mgmt/vendor-type/vendor-type.component';
 import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
+import { BudgetBillsAddComponent } from './layout/budget/bills/budget-bills-add/budget-bills-add.component';
+import { BudgetBillsComponent } from './layout/budget/bills/budget-bills.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
     SettlementComponent,
     AddFieldToFormComponent,
     VendorTypeComponent,
-    VendorComponent
+    VendorComponent,
+    BudgetBillsAddComponent,
+    BudgetBillsComponent
   ],
   imports: [
     BrowserModule,

@@ -34,6 +34,8 @@ export class BudgetExpensesComponent implements OnInit {
   ngOnInit() {
       this.budgetService.getExpensesWithKeys().subscribe((expenses: Array<Expense>) => {
         this.prepareData(expenses);
+        console.log(expenses);
+        
       });
   }
 

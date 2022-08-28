@@ -4,6 +4,11 @@ import { FieldType } from 'src/app/models/field-type';
 export default class Utils {
 
   public static tryToConvert(value: string): string | number {
+    console.log(value);
+    
+    if (value === null || value === undefined) {
+      return value;
+    }
     value = value.toString();
 
     // try to convert to number with comma-dot transformation

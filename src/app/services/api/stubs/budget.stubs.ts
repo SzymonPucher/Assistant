@@ -1,3 +1,4 @@
+import { Bill } from 'src/app/models/budget/bill';
 import { Vendor } from 'src/app/models/budget/vendor';
 import { VendorType } from 'src/app/models/budget/vendor-type';
 import { Expense } from 'src/app/models/core/expense';
@@ -43,4 +44,8 @@ export const vendorTypesStub = [
     VendorType.createFromProps(1, 'Sklep spożywczy'),
     VendorType.createFromProps(2, 'Szkoła tańca'),
     VendorType.createFromProps(3, 'Drogeria'),
+]
+
+export const billsStub = [
+    Bill.createFromProps('2022-08-20', 'Biedronka', 'Wrocław', 'mBank Card', 2.99, 'PLN')
 ]

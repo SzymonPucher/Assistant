@@ -15,12 +15,17 @@ import { JournalEventComponent } from './layout/journal/event/journal-event.comp
 import { JournalPomodoroComponent } from './layout/journal/pomodoro/journal-pomodoro.component';
 import { VendorTypeComponent } from './layout/budget/mgmt/vendor-type/vendor-type.component';
 import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
+import { BudgetExpensesBankStatementHistoryComponent } from './layout/budget/expenses/bank-statement-history/budget-expenses-bank-statement-history.component';
+import { BudgetBillsAddComponent } from './layout/budget/bills/budget-bills-add/budget-bills-add.component';
+
 
 const routes: Routes = [
   { path: 'budget', component: BudgetComponent },
+  { path: 'budget/bills/add', component: BudgetBillsAddComponent },
   { path: 'budget/expenses', component: BudgetExpensesComponent },
   { path: 'budget/expenses/add', component: BudgetExpensesAddComponent },
   { path: 'budget/expenses/settlement', component: SettlementComponent },
+  { path: 'budget/expenses/bank', component: BudgetExpensesBankStatementHistoryComponent },
   { path: 'budget/incomes', component: BudgetIncomesComponent },
   { path: 'budget/incomes/add', component: BudgetIncomesAddComponent },
   { path: 'budget/loans', component: BudgetLoansComponent },

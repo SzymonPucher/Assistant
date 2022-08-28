@@ -2,7 +2,7 @@ import { DataModelBase } from './data-model-base';
 import Utils from 'src/app/layout/shared/utils';
 import { Expense } from './expense';
 
-export class Bill extends DataModelBase {
+export class Bill2 extends DataModelBase {
 
     public currency: string;
     public date: string;

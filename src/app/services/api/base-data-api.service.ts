@@ -33,8 +33,10 @@ export class BaseDataApiService {
     var dData = {}
 
     dData[obj.id] = obj.name;
+    console.log(newData);
     
-    return this.db.object(fullPath).update(dData);
+    // return this.db.object(fullPath).update(newData);
+    return this.db.list(fullPath).push(newData);
   
   }
 
