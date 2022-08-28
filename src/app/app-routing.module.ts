@@ -17,10 +17,12 @@ import { VendorTypeComponent } from './layout/budget/mgmt/vendor-type/vendor-typ
 import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
 import { BudgetExpensesBankStatementHistoryComponent } from './layout/budget/expenses/bank-statement-history/budget-expenses-bank-statement-history.component';
 import { BudgetBillsAddComponent } from './layout/budget/bills/budget-bills-add/budget-bills-add.component';
+import { BudgetBillsComponent } from './layout/budget/bills/budget-bills.component';
 
 
 const routes: Routes = [
   { path: 'budget', component: BudgetComponent },
+  { path: 'budget/bills', component: BudgetBillsComponent },
   { path: 'budget/bills/add', component: BudgetBillsAddComponent },
   { path: 'budget/expenses', component: BudgetExpensesComponent },
   { path: 'budget/expenses/add', component: BudgetExpensesAddComponent },

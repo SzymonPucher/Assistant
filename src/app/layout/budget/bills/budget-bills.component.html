@@ -1,1 +1,24 @@
-<p>budget-bills works!</p>
+<div *ngIf="grouped_bills.size == 0" style="display: flex; justify-content: center;">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="grouped_bills.size > 0">
+    <div *ngFor="let k of getMapKeys(grouped_bills)">
+        <hr />
+        <div style="display: flex; justify-content: center;">
+            <mat-card style="display: inline-block;">
+                {{ k }}
+            </mat-card>
+        </div>
+        <div class="mat-card-container">
+            <mat-card *ngFor="let v of getMapKeys(grouped_bills.get(k))">
+                <mat-card-header>
+                    <mat-card-title>{{ v }}</mat-card-title>
+                    <mat-card-subtitle>
+                        {{ getSumInMap(k, v) }}
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+</div>

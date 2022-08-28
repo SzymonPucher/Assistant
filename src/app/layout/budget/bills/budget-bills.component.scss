@@ -1,0 +1,47 @@
+.list_of_elements {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .edit_popup {
+    position: fixed;
+    width: 400px;
+    height: 80%;
+    top: 10%;
+    left: 50%;
+    margin-left: -200px; /* Negative half of width. */
+    overflow-y: auto;
+    background-color: #666666;
+  }
+  
+  .single-expense {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #555555;
+    margin: 0.3rem;
+  }
+  
+  .grouped-expenses {
+    display: flex; 
+    justify-content: space-between;
+  }
+  
+  mat-card {
+    margin: 0.3rem;
+  }
+  
+  .mat-card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .update-form-action {
+    width: 40%; 
+    margin: 1rem;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
