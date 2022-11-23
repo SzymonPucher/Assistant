@@ -21,10 +21,12 @@ export class BillApiService extends BaseDataApiService {
 
     // get
     public getBills() {
+        return of(billsStub);
         return this.getList(this.billsSubPath).pipe(map(data => data.map(item => new Bill(item))));
     }
 
     public getBillsWithKeys() {
+        return of(billsStub);
         return this.getListWithKeys(this.billsSubPath).pipe(map(data => data.map(item => new Bill(item.payload.val(), item.payload.key))));;
     }
 

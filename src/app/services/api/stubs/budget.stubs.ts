@@ -47,5 +47,9 @@ export const vendorTypesStub = [
 ]
 
 export const billsStub = [
-    Bill.createFromProps('2022-08-20', 'Biedronka', 'Wrocław', 'mBank Card', 2.99, 'PLN')
+    Bill.createFromProps('2022-08-20', 'Biedronka', 'Wrocław', 'mBank Card', 2.99, 'PLN'),
+    Bill.createFromProps('2022-08-20', 'Biedronka', 'Wrocław', 'mBank Card', 3.99, 'PLN'),
+    Bill.createFromProps('2022-08-19', 'Żabka', 'Wrocław', 'Santander RED Card', 2.99, 'PLN'),
+    Bill.createFromProps('2022-08-19', 'Żabka', 'Wrocław', 'Santander GOLD Card', 8.20, 'PLN'),
+    Bill.createFromProps('2022-08-21', 'Żabka', 'Mikołów', 'Santander GOLD Card', 8.25, 'PLN')
 ]

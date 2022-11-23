@@ -11,11 +11,11 @@ import Utils from '../../shared/utils';
 export class BudgetBillsComponent implements OnInit {
 
   bills: Array<Bill>;
-  grouped_bills: Map<String, Map<String, Bill[]>>;
+  grouped_bills: Map<String, Bill[]>;
 
   constructor(private billService: BillApiService) { 
     this.bills = Array<Bill>();
-    this.grouped_bills = new Map<String, Map<String, Bill[]>>();
+    this.grouped_bills = new Map<String, Bill[]>();
   }
 
   ngOnInit() {
@@ -26,29 +26,17 @@ export class BudgetBillsComponent implements OnInit {
   }
 
   public groupBills() {
-    this.grouped_bills = new Map<String, Map<String, Bill[]>>();
+    this.grouped_bills = new Map<String, Bill[]>();
     
     this.bills.forEach((bill: Bill) => {
-      let date = bill.date.toString().slice(0,7);
-      let vendor = `${bill.vendor} - ${bill.payment_method}`;
+      let date = bill.date.toString().slice(0,10);
       if (this.grouped_bills.has(date)) {
-        if (this.grouped_bills.get(date).has(vendor)) {
-          let val = this.grouped_bills.get(date).get(vendor);
-          val.push(bill);
-          this.grouped_bills.get(date).set(vendor, val);
-        }
-        else {
-          this.grouped_bills.get(date).set(vendor, [bill]);
-        }
+        this.grouped_bills.get(date).push(bill);
       }
       else {
-        let newDateMap = new Map<string, Bill[]>();
-        newDateMap.set(vendor, [bill]);
-        this.grouped_bills.set(date, newDateMap)
+        this.grouped_bills.set(date, [bill])
       }
     });
-    console.log(this.grouped_bills);
-    
   }
 
   getMapKeys(mapObj: Map<any, any>, reverse=true){
@@ -58,14 +46,6 @@ export class BudgetBillsComponent implements OnInit {
       keys = keys.reverse();
     }
     return keys;
-  }
-
-  getSumInMap(date: string, vendor: string){
-    let sum = 0;
-    this.grouped_bills.get(date).get(vendor).forEach((expense: Bill) => {
-      sum += expense.price;
-    });
-    return Utils.round(sum, 2).toString() + ' ' + this.grouped_bills.get(date).get(vendor)[0].currency;
   }
 
 }

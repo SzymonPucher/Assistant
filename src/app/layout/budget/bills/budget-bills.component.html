@@ -3,21 +3,26 @@
 </div>
 
 <div *ngIf="grouped_bills.size > 0">
-    <div *ngFor="let k of getMapKeys(grouped_bills)">
+    <div *ngFor="let date_key of getMapKeys(grouped_bills)">
         <hr />
         <div style="display: flex; justify-content: center;">
             <mat-card style="display: inline-block;">
-                {{ k }}
+                {{ date_key }}
             </mat-card>
         </div>
         <div class="mat-card-container">
-            <mat-card *ngFor="let v of getMapKeys(grouped_bills.get(k))">
+            <mat-card *ngFor="let bill of grouped_bills.get(date_key).values()">
                 <mat-card-header>
-                    <mat-card-title>{{ v }}</mat-card-title>
+                    <mat-card-title>{{ bill.vendor }}</mat-card-title>
                     <mat-card-subtitle>
-                        {{ getSumInMap(k, v) }}
+                        {{ bill.getPriceWithCurrency() }}
                     </mat-card-subtitle>
                 </mat-card-header>
+                <mat-card-actions>
+                    <button mat-icon-button (click)="openUpdateForm(item)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-card-actions>
             </mat-card>
         </div>
     </div>

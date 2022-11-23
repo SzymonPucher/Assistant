@@ -3,6 +3,7 @@ import { DataModelBase } from "../core/data-model-base";
 
 export class Bill extends DataModelBase {
     
+    public key: string;
     public date: string;
     public vendor: string;
     public location: string;
@@ -25,8 +26,8 @@ export class Bill extends DataModelBase {
         );
     }
 
-    public static createFromProps(date, vendor, location, payment_method, price, currency): Bill {
-        return new Bill({date, vendor, location, payment_method, price, currency});
+    public static createFromProps(date, vendor, location, payment_method, price, currency, key = null): Bill {
+        return new Bill({date, vendor, location, payment_method, price, currency}, key);
     }
 
     public getDisplayValue(): string {
