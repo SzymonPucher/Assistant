@@ -18,16 +18,16 @@ export class BudgetBillsAddComponent implements OnInit {
     this.fields = [
       new FieldSpec('date', FieldType.date),
       new FieldSpec('vendor', FieldType.text),
-      new FieldSpec('location', FieldType.text),
-      new FieldSpec('payment_method', FieldType.text),
+      new FieldSpec('location', FieldType.text, 'Unknown'),
+      new FieldSpec('payment_method', FieldType.text, 'Unknown'),
       new FieldSpec('price', FieldType.number),
-      new FieldSpec('currency', FieldType.text)
+      new FieldSpec('currency', FieldType.text, 'PLN')
     ]
   }
 
   ngOnInit() {
     this.billService.getBillsWithKeys().subscribe((bills: Array<Bill>) => {
-      this.bills = bills.slice(-2).reverse();
+      this.bills = bills.slice(-3).reverse();
     });
   }
 

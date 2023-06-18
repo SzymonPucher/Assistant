@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { BudgetApiService } from 'src/app/services/api/budget-api.service';
 import { Expense } from 'src/app/models/core/expense';
 import { Income } from 'src/app/models/core/income';
+import { BillApiService } from "src/app/services/api/bill-api.service";
+import { Bill } from "src/app/models/budget/bill";
 
 @Component({
   selector: "app-budget",
@@ -26,20 +28,21 @@ export class BudgetComponent implements OnInit {
   all_expenses = 0;
   all_incomes = 0;
 
-  constructor(public budgetService: BudgetApiService) {
+  constructor(private billService: BillApiService) {
 
     this.expenses_list = [];
     this.incomes_list = [];
   }
 
   ngOnInit() {
-    this.budgetService.getExpenses().subscribe((expenses: Array<Expense>) => {
+    this.billService.getBills().subscribe((expenses: Array<Bill>) => {
+      console.log(expenses);
+      
       this.expenses_list = expenses;
-      this.budgetService.getIncomes().subscribe((incomes: Array<Income>) => {
-        this.incomes_list = incomes;
+        this.incomes_list = [];
         this.calculate();
         this.calculate_totals();
-      });
+
     });
   }
 
@@ -70,7 +73,6 @@ export class BudgetComponent implements OnInit {
     });
     return map;
   }
-
 
   private calculate(){
     let expenses_map = this.groupBy("date", "price", this.expenses_list);

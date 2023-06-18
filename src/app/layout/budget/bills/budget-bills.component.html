@@ -1,29 +1,73 @@
-<div *ngIf="grouped_bills.size == 0" style="display: flex; justify-content: center;">
+<div *ngIf="bills.size == 0" style="display: flex; justify-content: center;">
     <mat-spinner></mat-spinner>
 </div>
 
-<div *ngIf="grouped_bills.size > 0">
-    <div *ngFor="let date_key of getMapKeys(grouped_bills)">
-        <hr />
-        <div style="display: flex; justify-content: center;">
-            <mat-card style="display: inline-block;">
-                {{ date_key }}
-            </mat-card>
-        </div>
-        <div class="mat-card-container">
-            <mat-card *ngFor="let bill of grouped_bills.get(date_key).values()">
-                <mat-card-header>
-                    <mat-card-title>{{ bill.vendor }}</mat-card-title>
-                    <mat-card-subtitle>
-                        {{ bill.getPriceWithCurrency() }}
-                    </mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-actions>
-                    <button mat-icon-button (click)="openUpdateForm(item)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-    </div>
-</div>
+<!-- Filters -->
+<mat-card id="filterContainer">
+    <form [formGroup]="simpleForm">
+      <mat-form-field color="accent">
+        <mat-label>Start date</mat-label>
+        <input matInput formControlName="startDate" type="date" />
+      </mat-form-field>
+  
+      <mat-form-field color="accent">
+        <mat-label>End date</mat-label>
+        <input matInput formControlName="endDate" type="date" />
+      </mat-form-field>
+  
+      <mat-form-field color="accent">
+        <mat-label>Free-text filter</mat-label>
+        <input matInput formControlName="freeTextFilter" type="text" />
+      </mat-form-field>
+    </form>
+  </mat-card>
+
+<table *ngIf="bills.size != 0" mat-table [dataSource]="getBillsFiltered()" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{ element.date }} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} {{ element.currency }} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="vendor">
+        <th mat-header-cell *matHeaderCellDef> Vendor </th>
+        <td mat-cell *matCellDef="let element"> {{ element.getVendorLimited(50) }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef> Location </th>
+        <td mat-cell *matCellDef="let element"> {{ element.location }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="payment_method">
+        <th mat-header-cell *matHeaderCellDef> Payment Method </th>
+        <td mat-cell *matCellDef="let element"> {{ element.payment_method }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="edit(element)">
+                <mat-icon> edit </mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(element)">
+                <mat-icon> delete </mat-icon>
+            </button>
+        </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

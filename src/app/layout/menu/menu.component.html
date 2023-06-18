@@ -1,20 +1,18 @@
-<div id="menu_box">
-  <div *ngFor="let btn of buttons">
-    <button
-      *ngIf="btn.routerLink"
-      mat-icon-button
-      color="{{ btn.color }}"
-      routerLink="{{ btn.routerLink }}"
-    >
-      <mat-icon>{{ btn.iconName }}</mat-icon>
+<mat-drawer-container class="example-container" style="background-color: rgba(0, 0, 0, 0);" autosize>
+  <mat-drawer #drawer id="menu_box" class="example-sidenav" mode="side">
+    <button mat-raised-button class="menu-button" (click)="drawer.toggle(); is_on=false">
+      Hide
     </button>
-    <button
-      *ngIf="!btn.routerLink"
-      mat-icon-button
-      color="{{ btn.color }}"
-      (click)="changeMenu(btn.iconName)"
-    >
-      <mat-icon>{{ btn.iconName }}</mat-icon>
+      <div *ngFor="let btn of buttons">
+        <button class="menu-button" *ngIf="btn.routerLink" mat-raised-button color="{{ btn.color }}" routerLink="{{ btn.routerLink }}">
+          {{ btn.iconName }}
+        </button>
+        <button class="menu-button" *ngIf="!btn.routerLink" mat-raised-button color="{{ btn.color }}" (click)="changeMenu(btn.iconName)">
+          {{ btn.iconName }}
+        </button>
+      </div>
+  </mat-drawer>
+    <button *ngIf="!is_on" type="button" mat-icon-button (click)="drawer.toggle(); is_on=true">
+      <mat-icon >apps</mat-icon>
     </button>
-  </div>
-</div>
+</mat-drawer-container>

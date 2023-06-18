@@ -37,4 +37,11 @@ export class Bill extends DataModelBase {
     public getPriceWithCurrency(): string {
         return `${this.price} ${this.currency}`
     }
+
+    public getVendorLimited(limit: number) {
+        if (this.vendor.length <= limit) {
+            return this.vendor;
+        }
+        return this.vendor.substring(0, limit) + '...';
+    }
 }

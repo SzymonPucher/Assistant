@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  mockedResponses: true,
   firebaseConfig: {
     apiKey: "",
     authDomain: "assistant-237304.firebaseapp.com",

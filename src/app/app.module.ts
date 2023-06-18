@@ -17,6 +17,10 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDividerModule } from "@angular/material/divider";
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
+
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartsModule } from "ng2-charts";
@@ -44,6 +48,9 @@ import { VendorTypeComponent } from './layout/budget/mgmt/vendor-type/vendor-typ
 import { VendorComponent } from './layout/budget/mgmt/vendor/vendor.component';
 import { BudgetBillsAddComponent } from './layout/budget/bills/budget-bills-add/budget-bills-add.component';
 import { BudgetBillsComponent } from './layout/budget/bills/budget-bills.component';
+import { BudgetBillsAddBulkComponent } from './layout/budget/bills/budget-bills-add-bulk/budget-bills-add-bulk.component';
+import {MatTableModule} from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +79,8 @@ import { BudgetBillsComponent } from './layout/budget/bills/budget-bills.compone
     VendorTypeComponent,
     VendorComponent,
     BudgetBillsAddComponent,
-    BudgetBillsComponent
+    BudgetBillsComponent,
+    BudgetBillsAddBulkComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +101,9 @@ import { BudgetBillsComponent } from './layout/budget/bills/budget-bills.compone
     MatIconModule,
     MatSelectModule,
     MatDividerModule,
+    MatListModule,
+    MatSidenavModule,
+    MatTableModule,
 
     BrowserAnimationsModule,
     ChartsModule,
