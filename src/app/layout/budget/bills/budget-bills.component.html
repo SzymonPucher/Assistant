@@ -1,4 +1,4 @@
-<div *ngIf="bills.size == 0" style="display: flex; justify-content: center;">
+<div *ngIf="bills.length == 0" style="display: flex; justify-content: center;">
     <mat-spinner></mat-spinner>
 </div>
 
@@ -22,7 +22,7 @@
     </form>
   </mat-card>
 
-<table *ngIf="bills.size != 0" mat-table [dataSource]="getBillsFiltered()" class="mat-elevation-z8">
+<table *ngIf="bills.length != 0" mat-table [dataSource]="getBillsFiltered()" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->

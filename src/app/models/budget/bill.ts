@@ -15,11 +15,11 @@ export class Bill extends DataModelBase {
         super(data, key);
         this.key = key;
         this.date = data.date;
-        this.vendor = data.vendor;
-        this.location = data.location;
-        this.payment_method = data.payment_method
+        this.vendor = typeof data.vendor === 'string' ? data.vendor : 'Could not parse.';
+        this.location = typeof data.location === 'string' ? data.location : 'Could not parse.';
+        this.payment_method = typeof data.payment_method === 'string' ? data.payment_method : 'Could not parse.';
+        this.currency = typeof data.currency === 'string' ? data.currency : 'Could not parse.';
         this.price = data.price;
-        this.currency = data.currency;
         this.otherProperties = Utils.removeManyProperties(
             data, 
             this.getRequiredKeys()
@@ -39,9 +39,15 @@ export class Bill extends DataModelBase {
     }
 
     public getVendorLimited(limit: number) {
-        if (this.vendor.length <= limit) {
-            return this.vendor;
+        try {
+            if (this.vendor.length <= limit) {
+                return this.vendor;
+            }
+            return this.vendor.substring(0, limit) + '...';
         }
-        return this.vendor.substring(0, limit) + '...';
+        catch {
+            console.log('Problems parsing', this);
+            return 'Unknown';
+        }
     }
 }
